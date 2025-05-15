@@ -1,0 +1,16 @@
+{
+  "name": "leetlab-backend",
+  "version": "1.0.0",
+  "description": "leetlab - A lab digital lab for engineer.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "software",
+    "engineering"
+  ],
+  "author": "sandeep patel",
+  "license": "ISC"
+}
