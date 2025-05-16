@@ -12,5 +12,11 @@
     "engineering"
   ],
   "author": "sandeep patel",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
 }
