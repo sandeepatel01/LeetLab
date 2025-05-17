@@ -50,6 +50,7 @@ const register = async (req, res) => {
 
             const cookieOptions = {
                   httpOnly: true,
+                  sameSite: "strict",
                   secure: process.env.NODE_ENV !== "development",
                   maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
             };
@@ -70,14 +71,80 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+      const { email, password } = req.body;
 
+      if ([email, password].some((field) => field?.trim() === "")) {
+            throw new ApiError(400, "All fields are required");
+      };
+
+      try {
+            const user = await db.user.findUnique({
+                  where: {
+                        email
+                  }
+            });
+
+            const { password: _password, ...createdUser } = user;
+
+            if (!createdUser) {
+                  throw new ApiError(400, "User not created");
+            };
+
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+
+            if (!isPasswordValid) {
+                  throw new ApiError(401, "Invalid credentials");
+            };
+
+            const token = jwt.sign(
+                  { id: user.id },
+                  process.env.JWT_SECRET,
+                  { expiresIn: "7d" }
+            );
+
+            const cookieOptions = {
+                  httpOnly: true,
+                  sameSite: "strict",
+                  secure: process.env.NODE_ENV !== "development",
+                  maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+            };
+
+            res.cookie("token", token, cookieOptions);
+
+            res.status(200).json(
+                  new ApiResponse(
+                        200,
+                        createdUser,
+                        "User logged in successfully"
+                  )
+            )
+
+      } catch (error) {
+            throw new ApiError(500, error?.message || "Error logging in user");
+      }
 };
 
 const logout = async (req, res) => {
+      try {
+            const cookieOptions = {
+                  httpOnly: true,
+                  sameSite: "strict",
+                  secure: process.env.NODE_ENV !== "development",
+            };
+            res.clearCookie("jwt", cookieOptions);
 
+            res.status(200).json(
+                  new ApiResponse(
+                        200,
+                        "User logged out successfully"
+                  )
+            )
+      } catch (error) {
+            throw new ApiError(500, error?.message || "Error logging out user");
+      }
 };
 
-const check = async (req, res) => {
+const getMe = async (req, res) => {
 
 };
 
@@ -85,5 +152,5 @@ export {
       register,
       login,
       logout,
-      check
+      getMe
 };
