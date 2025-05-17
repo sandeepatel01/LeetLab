@@ -14,18 +14,13 @@ enum Role {
 }
 
 model User {
-  id                      String   @id @default(uuid())
-  name                    String
-  username                String   @unique
-  email                   String   @unique
-  password                String
-  avatar                  String
-  role                    Role     @default(USER)
-  accessToken             String
-  refreshToken            String
-  isVerified              Boolean  @default(false)
-  verificationToken       String
-  verificationTokenExpiry DateTime
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  id        String   @id @default(uuid())
+  name      String
+  username  String   @unique
+  email     String   @unique
+  password  String
+  avatar    String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
