@@ -14,12 +14,12 @@
   "author": "sandeep patel",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.8.1",
+    "@prisma/client": "^6.8.2",
     "dotenv": "^16.5.0",
     "express": "^5.1.0"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
-    "prisma": "^6.8.1"
+    "prisma": "^6.8.2"
   }
 }
