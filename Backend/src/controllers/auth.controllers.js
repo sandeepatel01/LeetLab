@@ -145,7 +145,17 @@ const logout = async (req, res) => {
 };
 
 const getMe = async (req, res) => {
-
+      try {
+            res.status(200).json(
+                  new ApiResponse(
+                        200,
+                        { user: req.user },
+                        "User fetched successfully"
+                  )
+            )
+      } catch (error) {
+            throw new ApiError(500, error?.message || "Error fetching user");
+      }
 };
 
 export {

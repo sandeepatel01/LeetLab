@@ -4,7 +4,7 @@ import { db } from "../libs/database.js";
 
 export const authMiddleware = async (req, res, next) => {
       try {
-            const token = req.cookies.jwt;
+            const token = req.cookies.token;
             if (!token) {
                   throw new ApiError(401, "Unauthorized - No token found");
             };
