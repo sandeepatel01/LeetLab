@@ -8,17 +8,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
 model User {
-  id        String    @id @default(uuid())
-  name      String
-  username  String    @unique
-  email     String    @unique
-  password  String
-  avatar    String?
-  role      Role      @default(USER)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  problems  Problem[]
+  id           String   @id @default(uuid())
+  name         String
+  username     String   @unique
+  email        String   @unique
+  password     String
+  avatar       String?
+  role         Role     @default(USER)
+  refreshToken String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  problems       Problem[]
+  submissions    Submission[]
+  problemsSolved ProblemSolved[]
 }
 
 model Problem {
@@ -37,16 +52,67 @@ model Problem {
   referenceSolutions Json
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
-  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+  solvedBy    ProblemSolved[]
+
+  @@index([userId])
 }
 
-enum Role {
-  ADMIN
-  USER
+model Submission {
+  id            String   @id @default(uuid())
+  userId        String
+  problemId     String
+  code          Json
+  language      String
+  stdin         String?
+  stdout        String?
+  stderr        String?
+  compileOutput String?
+  status        String
+  memory        String?
+  time          String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  testcases TestCaseResult[]
+
+  @@index([userId, problemId])
 }
 
-enum Difficulty {
-  EASY
-  MEDIUM
-  HARD
+model TestCaseResult {
+  id            String   @id @default(uuid())
+  submissionId  String
+  testCase      Int
+  passed        Boolean
+  stdout        String?
+  stderr        String?
+  expected      String
+  compileOutput String?
+  status        String
+  memory        String?
+  time          String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId])
+}
+
+model ProblemSolved {
+  id        String   @id @default(uuid())
+  userId    String
+  problemId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemId])
 }

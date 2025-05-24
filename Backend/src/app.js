@@ -10,9 +10,11 @@ app.use(cookieParser());
 import healthcheckRoute from "./routes/healthcheck.routes.js";
 import authRoute from "./routes/auth.routes.js";
 import problemRoute from "./routes/problem.routes.js";
+import executeCodeRoute from "./routes/executeCode.routes.js";
 
 app.use("/api/v1/healthcheck", healthcheckRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/problem", problemRoute);
+app.use("/api/v1/execute-code", executeCodeRoute);
 
 export default app;
