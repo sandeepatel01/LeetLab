@@ -204,13 +204,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "NEON_URL",
+        "fromEnvVar": "DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEON_URL\")\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nenum Difficulty {\n  EASY\n  MEDIUM\n  HARD\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  name      String\n  username  String   @unique\n  email     String   @unique\n  password  String\n  avatar    String?\n  role      Role     @default(USER)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  problems Problem[]\n}\n\nmodel Problem {\n  id          String     @id @default(uuid())\n  title       String\n  description String\n  difficulty  Difficulty @default(EASY)\n  tags        String[]\n  userId      String\n  examples    Json\n  constraints String\n  hints       String?\n  editorial   String?\n\n  testcases          Json\n  codeSnippets       Json\n  referenceSolutions Json\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n",
-  "inlineSchemaHash": "4407980c82625a81b5a295d6172cfc8fd3b018467b94140346f5f6bf70d057be",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String    @id @default(uuid())\n  name      String\n  username  String    @unique\n  email     String    @unique\n  password  String\n  avatar    String?\n  role      Role      @default(USER)\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n  problems  Problem[]\n}\n\nmodel Problem {\n  id                 String     @id @default(uuid())\n  title              String\n  description        String\n  difficulty         Difficulty @default(EASY)\n  tags               String[]\n  userId             String\n  examples           Json\n  constraints        String\n  hints              String?\n  editorial          String?\n  testcases          Json\n  codeSnippets       Json\n  referenceSolutions Json\n  createdAt          DateTime   @default(now())\n  updatedAt          DateTime   @updatedAt\n  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nenum Difficulty {\n  EASY\n  MEDIUM\n  HARD\n}\n",
+  "inlineSchemaHash": "361488156ed8a1ca5129dc891402ea4451cea09c34dc827c5a1fad3e09f8dbdc",
   "copyEngine": true
 }
 

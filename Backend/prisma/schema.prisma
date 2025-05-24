@@ -5,7 +5,39 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("NEON_URL")
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  username  String    @unique
+  email     String    @unique
+  password  String
+  avatar    String?
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  problems  Problem[]
+}
+
+model Problem {
+  id                 String     @id @default(uuid())
+  title              String
+  description        String
+  difficulty         Difficulty @default(EASY)
+  tags               String[]
+  userId             String
+  examples           Json
+  constraints        String
+  hints              String?
+  editorial          String?
+  testcases          Json
+  codeSnippets       Json
+  referenceSolutions Json
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
@@ -17,40 +49,4 @@ enum Difficulty {
   EASY
   MEDIUM
   HARD
-}
-
-model User {
-  id        String   @id @default(uuid())
-  name      String
-  username  String   @unique
-  email     String   @unique
-  password  String
-  avatar    String?
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  problems Problem[]
-}
-
-model Problem {
-  id          String     @id @default(uuid())
-  title       String
-  description String
-  difficulty  Difficulty @default(EASY)
-  tags        String[]
-  userId      String
-  examples    Json
-  constraints String
-  hints       String?
-  editorial   String?
-
-  testcases          Json
-  codeSnippets       Json
-  referenceSolutions Json
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

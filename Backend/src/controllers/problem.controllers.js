@@ -5,11 +5,20 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const createProblem = async (req, res) => {
-      const { title, description, difficulty, tags, examples, constraints, hints, editorial, testcases, codeSnippets, referenceSolutions } = req.body;
-
-      if ([title, description, difficulty, tags, examples, constraints, hints, editorial, testcases, codeSnippets, referenceSolutions].some((field) => field?.trim() === "")) {
-            throw new ApiError(400, "All fields are required");
-      };
+      const {
+            title,
+            description,
+            difficulty,
+            tags,
+            examples,
+            constraints,
+            hints,
+            editorial,
+            testcases,
+            codeSnippets,
+            referenceSolutions
+      } = req.body;
+      console.log("Body Data: ", req.body);
 
       if (req.user.role !== Role.ADMIN) {
             throw new ApiError(403, "You are not authorized to create a problem");
@@ -17,7 +26,7 @@ const createProblem = async (req, res) => {
 
       try {
             for (const [language, solutionCode] of Object.entries(referenceSolutions)) {
-                  const languageId = await getJudge0LanguageId(language);
+                  const languageId = getJudge0LanguageId(language);
 
                   if (!languageId) {
                         throw new ApiError(400, `Language ${language} is not supported`);
@@ -37,6 +46,7 @@ const createProblem = async (req, res) => {
 
                   for (let i = 0; i < results.length; i++) {
                         const result = results[i];
+                        console.log("Result: ", results);
 
                         if (result.status.id !== 3) {
                               throw new ApiError(400, `Testcase ${i + 1} failed for language ${language}`);
@@ -59,6 +69,7 @@ const createProblem = async (req, res) => {
                               userId: req.user.id
                         }
                   });
+                  console.log("New Problem: ", newProblem);
 
                   res.status(201).json(
                         new ApiResponse(

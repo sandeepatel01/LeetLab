@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { ApiError } from "../utils/ApiError.js";
 import { db } from "../libs/database.js";
+import { Role } from "../generated/prisma/index.js";
 
 export const authMiddleware = async (req, res, next) => {
       try {
@@ -39,6 +40,7 @@ export const authMiddleware = async (req, res, next) => {
             next();
 
       } catch (error) {
+            console.error("Error creating problem:", error);
             throw new ApiError(401, error?.message || "Error authenticating user");
       }
 };
@@ -55,7 +57,7 @@ export const isAdmin = async (req, res, next) => {
                   }
             })
 
-            if (!user || user.role !== "ADMIN") {
+            if (!user || user.role !== Role.ADMIN) {
                   throw new ApiError(403, "This is protected route for admins only");
             }
 
