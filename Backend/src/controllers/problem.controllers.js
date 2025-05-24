@@ -74,8 +74,8 @@ const createProblem = async (req, res) => {
                   res.status(201).json(
                         new ApiResponse(
                               201,
-                              newProblem,
-                              "Problem created successfully"
+                              "Problem created successfully",
+                              newProblem
                         )
                   )
             }
