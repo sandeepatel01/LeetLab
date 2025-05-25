@@ -43,3 +43,13 @@ export const submitBatch = async (submissions) => {
       return data;
 };
 
+export const getLanguageName = (languageId) => {
+      const LANGUAGE_NAMES = {
+            54: "C++",
+            62: "JAVA",
+            63: "JAVASCRIPT",
+            71: "PYTHON"
+      };
+
+      return LANGUAGE_NAMES[languageId] || "Unknown";
+}
