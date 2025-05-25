@@ -158,9 +158,45 @@ const getMe = async (req, res) => {
       }
 };
 
+const getAllProblemsSolvedByUser = async (req, res) => {
+      try {
+            const problems = await db.problem.findMany({
+                  where: {
+                        solvedBy: {
+                              some: {
+                                    userId: req.user.id
+                              }
+                        }
+                  },
+                  include: {
+                        solvedBy: {
+                              where: {
+                                    userId: req.user.id
+                              }
+                        }
+                  }
+            });
+
+            if (!problems) {
+                  throw new ApiError(404, "User not Solved any problem");
+            };
+
+            res.status(200).json(
+                  new ApiResponse(
+                        200,
+                        "Problems fetched successfully",
+                        problems
+                  )
+            )
+      } catch (error) {
+            throw new ApiError(500, error?.message || "Error fetching problems");
+      }
+};
+
 export {
       register,
       login,
       logout,
-      getMe
+      getMe,
+      getAllProblemsSolvedByUser
 };
