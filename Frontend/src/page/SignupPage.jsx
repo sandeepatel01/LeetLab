@@ -11,7 +11,7 @@ import { signupSchema } from "../lib/validation";
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { signup, isSigninup } = useAuthStore();
+  const { signup, isSigningUp } = useAuthStore();
 
   const {
     register,
@@ -162,15 +162,15 @@ const SignupPage = () => {
             <button
               type="submit"
               className="btn btn-primary w-full"
-              disabled={isSigninup}
+              disabled={isSigningUp}
             >
-              {isSigninup ? (
+              {isSigningUp ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />
                   Loading...
                 </>
               ) : (
-                "Sign in"
+                "Sign up"
               )}
             </button>
           </form>
