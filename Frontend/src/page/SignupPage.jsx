@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import { Code, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 
 import AuthImagePattern from "../components/AuthImagePattern";
-// import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../store/useAuthStore";
 import { signupSchema } from "../lib/validation";
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  // const { signup, isSigninUp } = useAuthStore();
+  const { signup, isSigninup } = useAuthStore();
 
   const {
     register,
@@ -23,7 +23,7 @@ const SignupPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      // await signup(data);
+      await signup(data);
       console.log("signup data", data);
     } catch (error) {
       console.error("SignUp failed:", error);
@@ -159,12 +159,12 @@ const SignupPage = () => {
             </div>
 
             {/* Submit Button */}
-            {/* <button
+            <button
               type="submit"
               className="btn btn-primary w-full"
-              disabled={isSigninUp}
+              disabled={isSigninup}
             >
-              {isSigninUp ? (
+              {isSigninup ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />
                   Loading...
@@ -172,7 +172,7 @@ const SignupPage = () => {
               ) : (
                 "Sign in"
               )}
-            </button> */}
+            </button>
           </form>
 
           {/* Footer */}

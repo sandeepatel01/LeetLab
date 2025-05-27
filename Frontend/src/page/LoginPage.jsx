@@ -6,10 +6,10 @@ import { Code, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 
 import AuthImagePattern from "../components/AuthImagePattern";
 import { LoginSchema } from "../lib/validation";
-// import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../store/useAuthStore";
 
 const LoginPage = () => {
-  // const { isLoggingIn, login } = useAuthStore();
+  const { isLoggingIn, login } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -22,8 +22,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      // await login(data);
-      console.log("login data", data);
+      await login(data);
     } catch (error) {
       console.error("Signup failed", error);
     }
@@ -108,7 +107,7 @@ const LoginPage = () => {
             </div>
 
             {/* Submit Button */}
-            {/* <button
+            <button
               type="submit"
               className="btn btn-primary w-full"
               disabled={isLoggingIn}
@@ -121,7 +120,7 @@ const LoginPage = () => {
               ) : (
                 "Sign in"
               )}
-            </button> */}
+            </button>
           </form>
 
           {/* Footer */}
