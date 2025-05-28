@@ -17,9 +17,6 @@ const Navbar = () => {
             src="/leetlab.svg"
             className="h-18 w-18 bg-primary/20 text-primary border-none px-2 py-2 rounded-full"
           /> */}
-          <p className="text-lg md:text-2xl font-bold tracking-tight text-white">
-            LeetLab
-          </p>
           <span className="text-lg md:text-2xl font-bold tracking-tight text-white hidden md:block">
             Leetlab
           </span>
