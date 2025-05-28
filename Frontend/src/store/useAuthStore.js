@@ -12,9 +12,9 @@ export const useAuthStore = create((set) => ({
             set({ isCheckingAuth: true });
             try {
                   const res = await axiosInstance.get("/auth/get-me");
-                  console.log("checkauth response", res.data);
+                  console.log("✅ checkauth response", res.data);
 
-                  set({ authUser: res.data.user });
+                  set({ authUser: res.data.message.user }); // ✅ FIXED
             } catch (error) {
                   console.log("❌ Error checking auth:", error);
                   set({ authUser: null });
@@ -28,11 +28,11 @@ export const useAuthStore = create((set) => ({
             try {
                   const res = await axiosInstance.post("/auth/register", data);
 
-                  set({ authUser: res.data.user });
+                  set({ authUser: res.data.message.user }); // ✅ FIXED
 
-                  toast.success(res.data.message);
+                  toast.success(res.data.message.message || "Signup successful");
             } catch (error) {
-                  console.log("Error signing up", error);
+                  console.log("❌ Error signing up", error);
                   toast.error("Error signing up");
             } finally {
                   set({ isSigningUp: false });
@@ -44,11 +44,11 @@ export const useAuthStore = create((set) => ({
             try {
                   const res = await axiosInstance.post("/auth/login", data);
 
-                  set({ authUser: res.data.user });
+                  set({ authUser: res.data.message.user }); // ✅ FIXED
 
-                  toast.success(res.data.message);
+                  toast.success(res.data.message.message || "Login successful");
             } catch (error) {
-                  console.log("Error logging in", error);
+                  console.log("❌ Error logging in", error);
                   toast.error("Error logging in");
             } finally {
                   set({ isLoggingIn: false });
@@ -62,7 +62,7 @@ export const useAuthStore = create((set) => ({
 
                   toast.success("Logout successful");
             } catch (error) {
-                  console.log("Error logging out", error);
+                  console.log("❌ Error logging out", error);
                   toast.error("Error logging out");
             }
       },

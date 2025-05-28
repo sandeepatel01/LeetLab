@@ -1,8 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "./page/HomePage";
 import LoginPage from "./page/LoginPage";
 import SignupPage from "./page/SignupPage";
-// import LandingPage from "./page/LandingPage";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
@@ -10,6 +8,7 @@ import { Loader } from "lucide-react";
 import Layout from "./Layout";
 import Admin from "./components/Admin";
 import AddProblem from "./page/AddProblem";
+import HomePage from "./page/HomePage";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -30,17 +29,37 @@ const App = () => {
     <div className="flex flex-col items-center justify-center">
       <Toaster />
       <Routes>
-        {/* <Route path="/" element={<LandingPage />} /> */}
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
+          />
+        </Route>
 
-        <Route path="/" element={<Layout />} />
-        <Route
-          index
-          element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
-        />
+        {/* <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={
+              authUser ? (
+                <>
+                  {console.log("✅ Rendering HomePage")}
+                  <HomePage />
+                </>
+              ) : (
+                <>
+                  {console.log("⛔ Redirecting to Login")}
+                  <Navigate to="/login" />
+                </>
+              )
+            }
+          />
+        </Route> */}
+
         <Route
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to={"/"} />}
         />
+
         <Route
           path="/signup"
           element={!authUser ? <SignupPage /> : <Navigate to={"/"} />}
