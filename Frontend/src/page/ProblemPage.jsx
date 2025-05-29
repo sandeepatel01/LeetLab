@@ -105,7 +105,7 @@ const ProblemPage = () => {
             setActiveTab={setActiveTab}
             problem={problem}
             submissions={submissions}
-            isSubmissionsLoading={false}
+            isSubmissionsLoading={isSubmissionsLoading}
           />
 
           <CodeEditor

@@ -17,41 +17,39 @@ const ProblemTabs = ({
             {problem.examples && (
               <>
                 <h3 className="text-xl font-bold mb-4">Examples:</h3>
-                {Object.entries(problem.examples).map(
-                  ([lang, example], idx) => (
-                    <div
-                      key={lang}
-                      className="bg-base-200 p-6 rounded-xl mb-6 font-mono"
-                    >
-                      <div className="mb-4">
-                        <div className="text-indigo-300 mb-2 font-semibold">
-                          Input:
-                        </div>
-                        <span className="bg-black/90 px-4 py-1 rounded-lg text-white">
-                          {example.input}
-                        </span>
+                {Object.entries(problem.examples).map(([lang, example]) => (
+                  <div
+                    key={lang}
+                    className="bg-base-200 p-6 rounded-xl mb-6 font-mono"
+                  >
+                    <div className="mb-4">
+                      <div className="text-indigo-300 mb-2 font-semibold">
+                        Input:
                       </div>
-                      <div className="mb-4">
-                        <div className="text-indigo-300 mb-2 font-semibold">
-                          Output:
-                        </div>
-                        <span className="bg-black/90 px-4 py-1 rounded-lg text-white">
-                          {example.output}
-                        </span>
-                      </div>
-                      {example.explanation && (
-                        <div>
-                          <div className="text-emerald-300 mb-2 font-semibold">
-                            Explanation:
-                          </div>
-                          <p className="text-base-content/70 text-lg">
-                            {example.explanation}
-                          </p>
-                        </div>
-                      )}
+                      <span className="bg-black/90 px-4 py-1 rounded-lg text-white">
+                        {example.input}
+                      </span>
                     </div>
-                  )
-                )}
+                    <div className="mb-4">
+                      <div className="text-indigo-300 mb-2 font-semibold">
+                        Output:
+                      </div>
+                      <span className="bg-black/90 px-4 py-1 rounded-lg text-white">
+                        {example.output}
+                      </span>
+                    </div>
+                    {example.explanation && (
+                      <div>
+                        <div className="text-emerald-300 mb-2 font-semibold">
+                          Explanation:
+                        </div>
+                        <p className="text-base-content/70 text-lg">
+                          {example.explanation}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </>
             )}
             {problem.constraints && (
