@@ -105,14 +105,14 @@ const getPlayListDetails = async (req, res) => {
 const addProblemToPlaylist = async (req, res) => {
       try {
             const { playlistId } = req.params;
-            const { problemIds } = req.body;
+            const { problemId } = req.body;
 
-            if (!Array.isArray(problemIds) || problemIds.length === 0) {
-                  throw new ApiError(400, "Invalid or missing problemIds");
+            if (!Array.isArray(problemId) || problemId.length === 0) {
+                  throw new ApiError(400, "Invalid or missing problemId");
             };
 
-            const problemsInPlaylist = await db.problemsInPlaylist.createMany({
-                  data: problemIds.map((problemId) => ({
+            const problemsInPlaylist = await db.problemInPlaylist.createMany({
+                  data: problemId.map((problemId) => ({
                         playlistId,
                         problemId
                   }))
@@ -138,17 +138,17 @@ const addProblemToPlaylist = async (req, res) => {
 const removeProblemFromPlaylist = async (req, res) => {
       try {
             const { playlistId } = req.params;
-            const { problemIds } = req.body;
+            const { problemId } = req.body;
 
-            if (!Array.isArray(problemIds) || problemIds.length === 0) {
+            if (!Array.isArray(problemId) || problemId.length === 0) {
                   throw new ApiError(400, "Invalid or missing problemIds");
             };
 
-            const removedProblems = await db.problemsInPlaylist.deleteMany({
+            const removedProblems = await db.problemInPlaylist.deleteMany({
                   where: {
                         playlistId,
                         problemId: {
-                              in: problemIds
+                              in: problemId
                         }
                   }
             });
