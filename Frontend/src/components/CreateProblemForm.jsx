@@ -265,203 +265,335 @@ class Main {
 };
 
 // Sample problem data for another type of question
-const sampleStringProblem = {
-  title: "Valid Palindrome",
+// const sampleStringProblem = {
+//   title: "Valid Palindrome",
+//   description:
+//     "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers. Given a string s, return true if it is a palindrome, or false otherwise.",
+//   difficulty: "EASY",
+//   tags: ["String", "Two Pointers"],
+//   constraints:
+//     "1 <= s.length <= 2 * 10^5\ns consists only of printable ASCII characters.",
+//   hints:
+//     "Consider using two pointers, one from the start and one from the end, moving towards the center.",
+//   editorial:
+//     "We can use two pointers approach to check if the string is a palindrome. One pointer starts from the beginning and the other from the end, moving towards each other.",
+//   testcases: [
+//     {
+//       input: "A man, a plan, a canal: Panama",
+//       output: "true",
+//     },
+//     {
+//       input: "race a car",
+//       output: "false",
+//     },
+//     {
+//       input: " ",
+//       output: "true",
+//     },
+//   ],
+//   examples: {
+//     JAVASCRIPT: {
+//       input: 's = "A man, a plan, a canal: Panama"',
+//       output: "true",
+//       explanation: '"amanaplanacanalpanama" is a palindrome.',
+//     },
+//     PYTHON: {
+//       input: 's = "A man, a plan, a canal: Panama"',
+//       output: "true",
+//       explanation: '"amanaplanacanalpanama" is a palindrome.',
+//     },
+//     JAVA: {
+//       input: 's = "A man, a plan, a canal: Panama"',
+//       output: "true",
+//       explanation: '"amanaplanacanalpanama" is a palindrome.',
+//     },
+//   },
+//   codeSnippets: {
+//     JAVASCRIPT: `/**
+//    * @param {string} s
+//    * @return {boolean}
+//    */
+//   function isPalindrome(s) {
+//     // Write your code here
+//   }
+  
+//   // Add readline for dynamic input handling
+//   const readline = require('readline');
+//   const rl = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout,
+//     terminal: false
+//   });
+  
+//   // Process input line
+//   rl.on('line', (line) => {
+//     // Call solution with the input string
+//     const result = isPalindrome(line);
+    
+//     // Output the result
+//     console.log(result ? "true" : "false");
+//     rl.close();
+//   });`,
+//     PYTHON: `class Solution:
+//       def isPalindrome(self, s: str) -> bool:
+//           # Write your code here
+//           pass
+  
+//   # Input parsing
+//   if __name__ == "__main__":
+//       import sys
+//       # Read the input string
+//       s = sys.stdin.readline().strip()
+      
+//       # Call solution
+//       sol = Solution()
+//       result = sol.isPalindrome(s)
+      
+//       # Output result
+//       print(str(result).lower())  # Convert True/False to lowercase true/false`,
+//     JAVA: `import java.util.Scanner;
+
+// public class Main {
+//     public static String preprocess(String s) {
+//         return s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+//     }
+
+//     public static boolean isPalindrome(String s) {
+       
+//     }
+
+//     public static void main(String[] args) {
+//         Scanner sc = new Scanner(System.in);
+//         String input = sc.nextLine();
+
+//         boolean result = isPalindrome(input);
+//         System.out.println(result ? "true" : "false");
+//     }
+// }
+// `,
+//   },
+//   referenceSolutions: {
+//     JAVASCRIPT: `/**
+//    * @param {string} s
+//    * @return {boolean}
+//    */
+//   function isPalindrome(s) {
+//     // Convert to lowercase and remove non-alphanumeric characters
+//     s = s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    
+//     // Check if it's a palindrome
+//     let left = 0;
+//     let right = s.length - 1;
+    
+//     while (left < right) {
+//       if (s[left] !== s[right]) {
+//         return false;
+//       }
+//       left++;
+//       right--;
+//     }
+    
+//     return true;
+//   }
+  
+//   // Add readline for dynamic input handling
+//   const readline = require('readline');
+//   const rl = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout,
+//     terminal: false
+//   });
+  
+//   // Process input line
+//   rl.on('line', (line) => {
+//     // Call solution with the input string
+//     const result = isPalindrome(line);
+    
+//     // Output the result
+//     console.log(result ? "true" : "false");
+//     rl.close();
+//   });`,
+//     PYTHON: `class Solution:
+//       def isPalindrome(self, s: str) -> bool:
+//           # Convert to lowercase and keep only alphanumeric characters
+//           filtered_chars = [c.lower() for c in s if c.isalnum()]
+          
+//           # Check if it's a palindrome
+//           return filtered_chars == filtered_chars[::-1]
+  
+//   # Input parsing
+//   if __name__ == "__main__":
+//       import sys
+//       # Read the input string
+//       s = sys.stdin.readline().strip()
+      
+//       # Call solution
+//       sol = Solution()
+//       result = sol.isPalindrome(s)
+      
+//       # Output result
+//       print(str(result).lower())  # Convert True/False to lowercase true/false`,
+//     JAVA: `import java.util.Scanner;
+
+// public class Main {
+//     public static String preprocess(String s) {
+//         return s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+//     }
+
+//     public static boolean isPalindrome(String s) {
+//         s = preprocess(s);
+//         int left = 0, right = s.length() - 1;
+
+//         while (left < right) {
+//             if (s.charAt(left) != s.charAt(right)) return false;
+//             left++;
+//             right--;
+//         }
+
+//         return true;
+//     }
+
+//     public static void main(String[] args) {
+//         Scanner sc = new Scanner(System.in);
+//         String input = sc.nextLine();
+
+//         boolean result = isPalindrome(input);
+//         System.out.println(result ? "true" : "false");
+//     }
+// }
+// `,
+//   },
+// };
+
+const sampleRemoveElementsProblem = {
+  title: "Remove Element",
   description:
-    "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers. Given a string s, return true if it is a palindrome, or false otherwise.",
+    "Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The relative order of the elements may be changed. Return the number of elements in nums which are not equal to val.",
   difficulty: "EASY",
-  tags: ["String", "Two Pointers"],
-  constraints:
-    "1 <= s.length <= 2 * 10^5\ns consists only of printable ASCII characters.",
+  tags: ["Array", "Two Pointers"],
+  constraints: "0 <= nums.length <= 100\n0 <= nums[i] <= 50\n0 <= val <= 100",
   hints:
-    "Consider using two pointers, one from the start and one from the end, moving towards the center.",
+    "Try to use two pointers: one for iterating and one for placing valid elements.",
   editorial:
-    "We can use two pointers approach to check if the string is a palindrome. One pointer starts from the beginning and the other from the end, moving towards each other.",
+    "We can use two pointers: one to iterate through the array and another to track the position to insert elements not equal to val.",
   testcases: [
     {
-      input: "A man, a plan, a canal: Panama",
-      output: "true",
+      input: "nums = [3,2,2,3], val = 3",
+      output: "2",
     },
     {
-      input: "race a car",
-      output: "false",
+      input: "nums = [0,1,2,2,3,0,4,2], val = 2",
+      output: "5",
     },
     {
-      input: " ",
-      output: "true",
+      input: "nums = [1], val = 1",
+      output: "0",
     },
   ],
   examples: {
     JAVASCRIPT: {
-      input: 's = "A man, a plan, a canal: Panama"',
-      output: "true",
-      explanation: '"amanaplanacanalpanama" is a palindrome.',
+      input: "nums = [3,2,2,3], val = 3",
+      output: "2",
+      explanation: "Your function should return 2, and nums = [2,2,...].",
     },
     PYTHON: {
-      input: 's = "A man, a plan, a canal: Panama"',
-      output: "true",
-      explanation: '"amanaplanacanalpanama" is a palindrome.',
+      input: "nums = [3,2,2,3], val = 3",
+      output: "2",
+      explanation: "Your function should return 2, and nums = [2,2,...].",
     },
     JAVA: {
-      input: 's = "A man, a plan, a canal: Panama"',
-      output: "true",
-      explanation: '"amanaplanacanalpanama" is a palindrome.',
+      input: "nums = [3,2,2,3], val = 3",
+      output: "2",
+      explanation: "Your function should return 2, and nums = [2,2,...].",
     },
   },
   codeSnippets: {
     JAVASCRIPT: `/**
-   * @param {string} s
-   * @return {boolean}
-   */
-  function isPalindrome(s) {
-    // Write your code here
-  }
-  
-  // Add readline for dynamic input handling
-  const readline = require('readline');
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false
-  });
-  
-  // Process input line
-  rl.on('line', (line) => {
-    // Call solution with the input string
-    const result = isPalindrome(line);
-    
-    // Output the result
-    console.log(result ? "true" : "false");
-    rl.close();
-  });`,
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+function removeElement(nums, val) {
+  // Write your code here
+}
+
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false
+});
+
+rl.on('line', (line) => {
+  const [arrStr, valStr] = line.split(';');
+  const nums = JSON.parse(arrStr.trim());
+  const val = parseInt(valStr.trim());
+  const result = removeElement(nums, val);
+  console.log(result);
+  rl.close();
+});`,
     PYTHON: `class Solution:
-      def isPalindrome(self, s: str) -> bool:
-          # Write your code here
-          pass
-  
-  # Input parsing
-  if __name__ == "__main__":
-      import sys
-      # Read the input string
-      s = sys.stdin.readline().strip()
-      
-      # Call solution
-      sol = Solution()
-      result = sol.isPalindrome(s)
-      
-      # Output result
-      print(str(result).lower())  # Convert True/False to lowercase true/false`,
-    JAVA: `import java.util.Scanner;
+  def removeElement(self, nums: list[int], val: int) -> int:
+      # Write your code here
+      pass
+
+if __name__ == "__main__":
+  import sys
+  arr_str, val_str = sys.stdin.readline().strip().split(";")
+  nums = list(map(int, arr_str.strip("[]").split(",")))
+  val = int(val_str)
+  sol = Solution()
+  result = sol.removeElement(nums, val)
+  print(result)`,
+    JAVA: `import java.util.*;
 
 public class Main {
-    public static String preprocess(String s) {
-        return s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-    }
-
-    public static boolean isPalindrome(String s) {
-       
+    public static int removeElement(int[] nums, int val) {
+        // Write your code here
+        return 0;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
+        String[] parts = sc.nextLine().split(";");
+        String[] numsStr = parts[0].replaceAll("[\\[\\]]", "").split(",");
+        int[] nums = Arrays.stream(numsStr).mapToInt(Integer::parseInt).toArray();
+        int val = Integer.parseInt(parts[1].trim());
 
-        boolean result = isPalindrome(input);
-        System.out.println(result ? "true" : "false");
+        int result = removeElement(nums, val);
+        System.out.println(result);
     }
-}
-`,
+}`,
   },
   referenceSolutions: {
-    JAVASCRIPT: `/**
-   * @param {string} s
-   * @return {boolean}
-   */
-  function isPalindrome(s) {
-    // Convert to lowercase and remove non-alphanumeric characters
-    s = s.toLowerCase().replace(/[^a-z0-9]/g, '');
-    
-    // Check if it's a palindrome
-    let left = 0;
-    let right = s.length - 1;
-    
-    while (left < right) {
-      if (s[left] !== s[right]) {
-        return false;
-      }
-      left++;
-      right--;
+    JAVASCRIPT: `function removeElement(nums, val) {
+  let k = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== val) {
+      nums[k++] = nums[i];
     }
-    
-    return true;
   }
-  
-  // Add readline for dynamic input handling
-  const readline = require('readline');
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false
-  });
-  
-  // Process input line
-  rl.on('line', (line) => {
-    // Call solution with the input string
-    const result = isPalindrome(line);
-    
-    // Output the result
-    console.log(result ? "true" : "false");
-    rl.close();
-  });`,
+  return k;
+}`,
     PYTHON: `class Solution:
-      def isPalindrome(self, s: str) -> bool:
-          # Convert to lowercase and keep only alphanumeric characters
-          filtered_chars = [c.lower() for c in s if c.isalnum()]
-          
-          # Check if it's a palindrome
-          return filtered_chars == filtered_chars[::-1]
-  
-  # Input parsing
-  if __name__ == "__main__":
-      import sys
-      # Read the input string
-      s = sys.stdin.readline().strip()
-      
-      # Call solution
-      sol = Solution()
-      result = sol.isPalindrome(s)
-      
-      # Output result
-      print(str(result).lower())  # Convert True/False to lowercase true/false`,
-    JAVA: `import java.util.Scanner;
-
-public class Main {
-    public static String preprocess(String s) {
-        return s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-    }
-
-    public static boolean isPalindrome(String s) {
-        s = preprocess(s);
-        int left = 0, right = s.length() - 1;
-
-        while (left < right) {
-            if (s.charAt(left) != s.charAt(right)) return false;
-            left++;
-            right--;
+  def removeElement(self, nums: list[int], val: int) -> int:
+      k = 0
+      for i in range(len(nums)):
+          if nums[i] != val:
+              nums[k] = nums[i]
+              k += 1
+      return k`,
+    JAVA: `public class Main {
+    public static int removeElement(int[] nums, int val) {
+        int k = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[k++] = nums[i];
+            }
         }
-
-        return true;
+        return k;
     }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-
-        boolean result = isPalindrome(input);
-        System.out.println(result ? "true" : "false");
-    }
-}
-`,
+}`,
   },
 };
 
@@ -535,7 +667,7 @@ const CreateProblemForm = () => {
   };
 
   const loadSampleData = () => {
-    const sampleData = sampleType === "DP" ? sampledpData : sampleStringProblem;
+    const sampleData = sampleType === "DP" ? sampledpData : sampleRemoveElementsProblem ;
 
     replaceTags(sampleData.tags.map((tag) => tag));
     replacetestcases(sampleData.testcases.map((tc) => tc));
