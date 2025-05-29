@@ -13,7 +13,7 @@ const ProblemPage = () => {
   const { id } = useParams();
   const { getProblemById, problem, isProblemLoading } = useProblemStore();
   const {
-    submission: submissions,
+    submissions,
     isLoading: isSubmissionsLoading,
     getSubmissionForProblem,
     getSubmissionCountForProblem,
@@ -46,6 +46,14 @@ const ProblemPage = () => {
       );
     }
   }, [problem, selectedLanguage, submission]);
+
+  useEffect(() => {
+    if (activeTab === "submissions" && id) {
+      getSubmissionForProblem(id);
+    }
+  }, [activeTab, id, getSubmissionForProblem]);
+
+  console.log("Submissions", submissions);
 
   const handleLanguageChange = (e) => {
     const lang = e.target.value;
@@ -96,7 +104,7 @@ const ProblemPage = () => {
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             problem={problem}
-            submissions={problem.submissions}
+            submissions={submissions}
             isSubmissionsLoading={false}
           />
 
