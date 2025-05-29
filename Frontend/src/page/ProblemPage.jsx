@@ -55,6 +55,10 @@ const ProblemPage = () => {
 
   console.log("Submissions", submissions);
 
+  useEffect(() => {
+    console.log("Updated submission:", submission);
+  }, [submission]);
+
   const handleLanguageChange = (e) => {
     const lang = e.target.value;
     setSelectedLanguage(lang);
