@@ -7,10 +7,18 @@ import ProblemTabs from "../components/problem/ProblemTabs";
 import CodeEditor from "../components/problem/CodeEditor";
 import TestCaseSection from "../components/problem/TestCaseSection";
 import { getLanguageId } from "../lib/language";
+import { useSubmissionStore } from "../store/useSubmissionStore";
 
 const ProblemPage = () => {
   const { id } = useParams();
   const { getProblemById, problem, isProblemLoading } = useProblemStore();
+  const {
+    submission: submissions,
+    isLoading: isSubmissionsLoading,
+    getSubmissionForProblem,
+    getSubmissionCountForProblem,
+    submissionCount,
+  } = useSubmissionStore();
 
   const [code, setCode] = useState("");
   const [activeTab, setActiveTab] = useState("description");
@@ -20,11 +28,10 @@ const ProblemPage = () => {
 
   const { executeCode, submission, isExecuting } = useExecutionStore();
 
-  const submissionCount = 10;
-
   useEffect(() => {
     getProblemById(id);
-  }, [id, getProblemById]);
+    getSubmissionCountForProblem(id);
+  }, [id, getProblemById, getSubmissionCountForProblem]);
 
   useEffect(() => {
     if (problem) {
