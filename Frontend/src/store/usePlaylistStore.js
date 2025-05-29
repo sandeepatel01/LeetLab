@@ -12,11 +12,10 @@ export const usePlaylistStore = create((set, get) => ({
             try {
                   set({ isLoading: true });
 
-                  // ✅ Fix: convert `name` to `title` if needed
                   const payload = {
                         title: playlistData.title || playlistData.name,
                         description: playlistData.description,
-                        banner: playlistData.banner || null, // optional
+                        banner: playlistData.banner || null,
                   };
 
                   console.log("Payload being sent:", payload);
@@ -43,12 +42,13 @@ export const usePlaylistStore = create((set, get) => ({
             }
       },
 
-
       getAllPlaylists: async () => {
             try {
                   set({ isLoading: true });
                   const response = await axiosInstance.get("/playlist");
-                  set({ playlists: response.data.playLists });
+                  console.log("All Playlists:", response.data);
+
+                  set({ playlists: response.data.data });
             } catch (error) {
                   console.error("Error fetching playlists:", error);
                   toast.error("Failed to fetch playlists");
@@ -61,7 +61,9 @@ export const usePlaylistStore = create((set, get) => ({
             try {
                   set({ isLoading: true });
                   const response = await axiosInstance.get(`/playlist/${playlistId}`);
-                  set({ currentPlaylist: response.data.playList });
+                  console.log("Playlist Details:", response.data);
+
+                  set({ currentPlaylist: response.data.data });
             } catch (error) {
                   console.error("Error fetching playlist details:", error);
                   toast.error("Failed to fetch playlist details");
@@ -73,8 +75,14 @@ export const usePlaylistStore = create((set, get) => ({
       addProblemToPlaylist: async (playlistId, problemIds) => {
             try {
                   set({ isLoading: true });
+
+                  console.log("Sending problems to playlist:", {
+                        playlistId,
+                        problemId: problemIds,
+                  });
+
                   await axiosInstance.post(`/playlist/${playlistId}/add-problem`, {
-                        problemIds,
+                        problemId: problemIds,
                   });
 
                   toast.success("Problem added to playlist");
@@ -90,6 +98,8 @@ export const usePlaylistStore = create((set, get) => ({
                   set({ isLoading: false });
             }
       },
+
+
 
       removeProblemFromPlaylist: async (playlistId, problemIds) => {
             try {
