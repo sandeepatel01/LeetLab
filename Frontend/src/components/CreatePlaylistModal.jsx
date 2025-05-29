@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { X } from "lucide-react";
+
 const CreatePlaylistModal = ({ isOpen, onClose, onSubmit }) => {
   const {
     register,
@@ -9,7 +10,13 @@ const CreatePlaylistModal = ({ isOpen, onClose, onSubmit }) => {
   } = useForm();
 
   const handleFormSubmit = async (data) => {
-    await onSubmit(data);
+    // 🔁 Rename `name` → `title` for backend compatibility
+    const formattedData = {
+      title: data.name,
+      description: data.description,
+    };
+
+    await onSubmit(formattedData);
     reset();
     onClose();
   };

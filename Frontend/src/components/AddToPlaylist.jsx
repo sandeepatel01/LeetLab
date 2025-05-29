@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X, Plus, Loader } from "lucide-react";
 import { usePlaylistStore } from "../store/usePlaylistStore";
 
@@ -47,7 +47,7 @@ const AddToPlaylistModal = ({ isOpen, onClose, problemId }) => {
               <option value="">Select a playlist</option>
               {playlists.map((playlist) => (
                 <option key={playlist.id} value={playlist.id}>
-                  {playlist.name}
+                  {playlist.title}
                 </option>
               ))}
             </select>

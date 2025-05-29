@@ -11,25 +11,38 @@ export const usePlaylistStore = create((set, get) => ({
       createPlaylist: async (playlistData) => {
             try {
                   set({ isLoading: true });
+
+                  // ✅ Fix: convert `name` to `title` if needed
+                  const payload = {
+                        title: playlistData.title || playlistData.name,
+                        description: playlistData.description,
+                        banner: playlistData.banner || null, // optional
+                  };
+
+                  console.log("Payload being sent:", payload);
+
                   const response = await axiosInstance.post(
                         "/playlist/create-playlist",
-                        playlistData
+                        payload
                   );
 
+                  const newPlaylist = response.data.data;
+
                   set((state) => ({
-                        playlists: [...state.playlists, response.data.playList],
+                        playlists: [...state.playlists, newPlaylist],
                   }));
 
                   toast.success("Playlist created successfully");
-                  return response.data.playList;
+                  return newPlaylist;
             } catch (error) {
                   console.error("Error creating playlist:", error);
-                  toast.error(error.response?.data?.error || "Failed to create playlist");
+                  toast.error(error.response?.data?.message || "Failed to create playlist");
                   throw error;
             } finally {
                   set({ isLoading: false });
             }
       },
+
 
       getAllPlaylists: async () => {
             try {
