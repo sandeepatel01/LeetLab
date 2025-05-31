@@ -6,24 +6,33 @@ import {
 } from "lucide-react";
 
 const Submission = ({ submission }) => {
+  if (!submission) {
+    return (
+      <div className="text-center py-4">No submission data available.</div>
+    );
+  }
+
   // Parse stringified arrays
   const memoryArr = JSON.parse(submission.memory || "[]");
   const timeArr = JSON.parse(submission.time || "[]");
 
   // Calculate averages
   const avgMemory =
-    memoryArr
-      .map((m) => parseFloat(m)) // remove ' KB' using parseFloat
-      .reduce((a, b) => a + b, 0) / memoryArr.length;
+    memoryArr.length > 0
+      ? memoryArr.map((m) => parseFloat(m)).reduce((a, b) => a + b, 0) /
+        memoryArr.length
+      : 0;
 
   const avgTime =
-    timeArr
-      .map((t) => parseFloat(t)) // remove ' s' using parseFloat
-      .reduce((a, b) => a + b, 0) / timeArr.length;
+    timeArr.length > 0
+      ? timeArr.map((t) => parseFloat(t)).reduce((a, b) => a + b, 0) /
+        timeArr.length
+      : 0;
 
-  const passedTests = submission.testCases.filter((tc) => tc.passed).length;
-  const totalTests = submission.testCases.length;
-  const successRate = (passedTests / totalTests) * 100;
+  const passedTests =
+    submission.testCases?.filter((tc) => tc.passed).length || 0;
+  const totalTests = submission.testCases?.length || 0;
+  const successRate = totalTests > 0 ? (passedTests / totalTests) * 100 : 0;
 
   return (
     <div className="space-y-6">
@@ -86,7 +95,7 @@ const Submission = ({ submission }) => {
                 </tr>
               </thead>
               <tbody>
-                {submission.testCases.map((testCase) => (
+                {submission.testCases?.map((testCase) => (
                   <tr key={testCase.id}>
                     <td>
                       {testCase.passed ? (

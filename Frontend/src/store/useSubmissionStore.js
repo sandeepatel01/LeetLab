@@ -29,7 +29,10 @@ export const useSubmissionStore = create((set) => ({
                         `/submission/get-submission/${problemId}`
                   );
 
-                  set({ submissions: res.data.data });
+                  console.log("getSubmissionForProblem API response:", res.data);
+
+                  const data = res.data.data;
+                  set({ submissions: Array.isArray(data) ? data : [data] });
             } catch (error) {
                   console.log("Error getting submissions for problem", error);
                   toast.error("Error getting submissions for problem");
