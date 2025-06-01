@@ -10,6 +10,7 @@ import Admin from "./components/Admin";
 import AddProblem from "./page/AddProblem";
 import HomePage from "./page/HomePage";
 import ProblemPage from "./page/ProblemPage";
+import LandingPage from "./page/LandingPage";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -31,46 +32,25 @@ const App = () => {
       <Toaster />
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route index element={<LandingPage />} />
           <Route
-            index
-            element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
+            path="home"
+            element={authUser ? <HomePage /> : <Navigate to="/login" />}
           />
         </Route>
 
-        {/* <Route path="/" element={<Layout />}>
-          <Route
-            index
-            element={
-              authUser ? (
-                <>
-                  {console.log("✅ Rendering HomePage")}
-                  <HomePage />
-                </>
-              ) : (
-                <>
-                  {console.log("⛔ Redirecting to Login")}
-                  <Navigate to="/login" />
-                </>
-              )
-            }
-          />
-        </Route> */}
-
         <Route
           path="/login"
-          element={!authUser ? <LoginPage /> : <Navigate to={"/"} />}
+          element={!authUser ? <LoginPage /> : <Navigate to="/home" />}
         />
-
         <Route
           path="/signup"
-          element={!authUser ? <SignupPage /> : <Navigate to={"/"} />}
+          element={!authUser ? <SignupPage /> : <Navigate to="/home" />}
         />
-
         <Route
           path="/problem/:id"
           element={authUser ? <ProblemPage /> : <Navigate to="/login" />}
         />
-
         <Route element={<Admin />}>
           <Route
             path="/add-problem"
