@@ -4,6 +4,10 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { db } from "../libs/database.js"
 import { Role } from "../generated/prisma/index.js";
+import { decodeIdToken, generateCodeVerifier, generateState } from "arctic";
+import { OAUTH_EXCHANGE_EXPIRY } from "../constants.js";
+import { google } from "../libs/oAuth/google.js";
+import { createUserWithOAuth, getUserWithOAuthId, linkUserWithOAuth } from "../services/auth.services.js";
 
 const register = async (req, res) => {
       const { name, username, email, password } = req.body;
@@ -193,10 +197,91 @@ const getAllProblemsSolvedByUser = async (req, res) => {
       }
 };
 
+const loginWithGoogle = async (req, res) => {
+      if (!req.user) {
+            throw new ApiError(400, "User not found");
+      };
+
+      const state = generateState();
+      const codeVerifier = generateCodeVerifier();
+      const url = google.createAuthorizationURL(state, codeVerifier, [
+            "openid",
+            "email",
+            "profile"
+      ]);
+
+      const cookieConfig = {
+            httpOnly: true,
+            secure: true,
+            maxAge: OAUTH_EXCHANGE_EXPIRY,
+            sameSite: "lax"
+      }
+
+      res.cookie("oauth_state", state, cookieConfig);
+      res.cookie("oauth_code_verifier", codeVerifier, cookieConfig);
+
+      res.redirect(url.toString());
+};
+
+const getGoogleLoginCallback = async (req, res) => {
+      const { state, code } = req.query;
+      console.log("State: ", state);
+      console.log("Code: ", code);
+
+      const {
+            google_oauth_state: storedState,
+            google_code_verifier: codeVerifier
+      } = req.cookies;
+
+      if (!code || !state || !storedState || !codeVerifier || state !== storedState) {
+            throw new ApiError(400, "Couldn't login with google because of invalid login attempt. Please try again");
+            return res.redirect("/login");
+      };
+
+      let tokens;
+      try {
+            tokens = await google.validateAuthorizationCode(code, codeVerifier);
+      } catch (error) {
+            throw new ApiError(400, "Couldn't login with google because of invalid login attempt. Please try again");
+            return res.redirect("/login");
+      };
+
+      console.log("Google tokens: ", tokens);
+
+      const claims = decodeIdToken(tokens.idToken());
+      const { sub: googleUserId, email, name } = claims;
+
+      let user = await getUserWithOAuthId({
+            email,
+            provider: "google",
+      });
+
+      if (user && !user.providerId) {
+            await linkUserWithOAuth({
+                  userId: user.id,
+                  provider: "google",
+                  providerId: googleUserId
+            })
+      }
+
+      if (!user) {
+            user = await createUserWithOAuth({
+                  name,
+                  email,
+                  provider: "google",
+                  providerId: googleUserId
+            })
+      }
+
+      
+}
+
 export {
       register,
       login,
       logout,
       getMe,
-      getAllProblemsSolvedByUser
+      getAllProblemsSolvedByUser,
+      loginWithGoogle,
+      getGoogleLoginCallback
 };

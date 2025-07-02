@@ -7,34 +7,40 @@ import {
 } from "lucide-react";
 
 const SubmissionsList = ({ submissions, isLoading }) => {
-  // Helper function to safely parse JSON strings
+  // ✅ Null-safe JSON parser
   const safeParse = (data) => {
+    if (!data) return [];
     try {
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : [];
     } catch (error) {
       console.error("Error parsing data:", error);
       return [];
     }
   };
 
-  // Helper function to calculate average memory usage
+  // ✅ Average memory calculation
   const calculateAverageMemory = (memoryData) => {
-    const memoryArray = safeParse(memoryData).map((m) =>
-      parseFloat(m.split(" ")[0])
-    );
+    const memoryArray = safeParse(memoryData);
     if (memoryArray.length === 0) return 0;
+
+    const numericMemory = memoryArray.map((m) => parseFloat(m?.split(" ")[0]));
+
     return (
-      memoryArray.reduce((acc, curr) => acc + curr, 0) / memoryArray.length
+      numericMemory.reduce((acc, curr) => acc + curr, 0) / numericMemory.length
     );
   };
 
-  // Helper function to calculate average runtime
+  // ✅ Average time calculation
   const calculateAverageTime = (timeData) => {
-    const timeArray = safeParse(timeData).map((t) =>
-      parseFloat(t.split(" ")[0])
-    );
+    const timeArray = safeParse(timeData);
     if (timeArray.length === 0) return 0;
-    return timeArray.reduce((acc, curr) => acc + curr, 0) / timeArray.length;
+
+    const numericTime = timeArray.map((t) => parseFloat(t?.split(" ")[0]));
+
+    return (
+      numericTime.reduce((acc, curr) => acc + curr, 0) / numericTime.length
+    );
   };
 
   // Loading state

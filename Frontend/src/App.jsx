@@ -43,14 +43,17 @@ const App = () => {
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/home" />}
         />
+
         <Route
           path="/signup"
           element={!authUser ? <SignupPage /> : <Navigate to="/home" />}
         />
+
         <Route
           path="/problem/:id"
           element={authUser ? <ProblemPage /> : <Navigate to="/login" />}
         />
+
         <Route element={<Admin />}>
           <Route
             path="/add-problem"

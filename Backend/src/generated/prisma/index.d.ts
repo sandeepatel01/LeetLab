@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model oAuthAccount
+ * 
+ */
+export type oAuthAccount = $Result.DefaultSelection<Prisma.$oAuthAccountPayload>
+/**
  * Model Problem
  * 
  */
@@ -69,6 +74,14 @@ export const Difficulty: {
 
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 
+
+export const Provider: {
+  GOOGLE: 'GOOGLE',
+  GITHUB: 'GITHUB'
+};
+
+export type Provider = (typeof Provider)[keyof typeof Provider]
+
 }
 
 export type Role = $Enums.Role
@@ -78,6 +91,10 @@ export const Role: typeof $Enums.Role
 export type Difficulty = $Enums.Difficulty
 
 export const Difficulty: typeof $Enums.Difficulty
+
+export type Provider = $Enums.Provider
+
+export const Provider: typeof $Enums.Provider
 
 /**
  * ##  Prisma Client ʲˢ
@@ -215,6 +232,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.oAuthAccount`: Exposes CRUD operations for the **oAuthAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OAuthAccounts
+    * const oAuthAccounts = await prisma.oAuthAccount.findMany()
+    * ```
+    */
+  get oAuthAccount(): Prisma.oAuthAccountDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.problem`: Exposes CRUD operations for the **Problem** model.
     * Example usage:
     * ```ts
@@ -331,8 +358,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.9.0
+   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
    */
   export type PrismaVersion = {
     client: string
@@ -714,6 +741,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    oAuthAccount: 'oAuthAccount',
     Problem: 'Problem',
     Submission: 'Submission',
     TestCaseResult: 'TestCaseResult',
@@ -738,7 +766,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "problem" | "submission" | "testCaseResult" | "problemSolved" | "playlist" | "problemInPlaylist"
+      modelProps: "user" | "oAuthAccount" | "problem" | "submission" | "testCaseResult" | "problemSolved" | "playlist" | "problemInPlaylist"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -813,6 +841,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      oAuthAccount: {
+        payload: Prisma.$oAuthAccountPayload<ExtArgs>
+        fields: Prisma.oAuthAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.oAuthAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.oAuthAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.oAuthAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.oAuthAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>
+          }
+          findMany: {
+            args: Prisma.oAuthAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>[]
+          }
+          create: {
+            args: Prisma.oAuthAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>
+          }
+          createMany: {
+            args: Prisma.oAuthAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.oAuthAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.oAuthAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>
+          }
+          update: {
+            args: Prisma.oAuthAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.oAuthAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.oAuthAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.oAuthAccountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>[]
+          }
+          upsert: {
+            args: Prisma.oAuthAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$oAuthAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.OAuthAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOAuthAccount>
+          }
+          groupBy: {
+            args: Prisma.oAuthAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OAuthAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.oAuthAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<OAuthAccountCountAggregateOutputType> | number
           }
         }
       }
@@ -1345,6 +1447,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    oAuthAccount?: oAuthAccountOmit
     problem?: ProblemOmit
     submission?: SubmissionOmit
     testCaseResult?: TestCaseResultOmit
@@ -1449,6 +1552,7 @@ export namespace Prisma {
     submissions: number
     problemsSolved: number
     plalists: number
+    oAuthAccounts: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1456,6 +1560,7 @@ export namespace Prisma {
     submissions?: boolean | UserCountOutputTypeCountSubmissionsArgs
     problemsSolved?: boolean | UserCountOutputTypeCountProblemsSolvedArgs
     plalists?: boolean | UserCountOutputTypeCountPlalistsArgs
+    oAuthAccounts?: boolean | UserCountOutputTypeCountOAuthAccountsArgs
   }
 
   // Custom InputTypes
@@ -1495,6 +1600,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPlalistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PlaylistWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOAuthAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: oAuthAccountWhereInput
   }
 
 
@@ -1633,11 +1745,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     bio: string | null
     location: string | null
-    isVerified: boolean | null
-    verificationToken: string | null
-    verificationTokenExpiry: Date | null
-    resetPasswordToken: string | null
-    resetPasswordTokenExpiry: Date | null
+    refreshToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1652,11 +1760,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     bio: string | null
     location: string | null
-    isVerified: boolean | null
-    verificationToken: string | null
-    verificationTokenExpiry: Date | null
-    resetPasswordToken: string | null
-    resetPasswordTokenExpiry: Date | null
+    refreshToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1672,11 +1776,7 @@ export namespace Prisma {
     bio: number
     location: number
     socials: number
-    isVerified: number
-    verificationToken: number
-    verificationTokenExpiry: number
-    resetPasswordToken: number
-    resetPasswordTokenExpiry: number
+    refreshToken: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1693,11 +1793,7 @@ export namespace Prisma {
     role?: true
     bio?: true
     location?: true
-    isVerified?: true
-    verificationToken?: true
-    verificationTokenExpiry?: true
-    resetPasswordToken?: true
-    resetPasswordTokenExpiry?: true
+    refreshToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1712,11 +1808,7 @@ export namespace Prisma {
     role?: true
     bio?: true
     location?: true
-    isVerified?: true
-    verificationToken?: true
-    verificationTokenExpiry?: true
-    resetPasswordToken?: true
-    resetPasswordTokenExpiry?: true
+    refreshToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1732,11 +1824,7 @@ export namespace Prisma {
     bio?: true
     location?: true
     socials?: true
-    isVerified?: true
-    verificationToken?: true
-    verificationTokenExpiry?: true
-    resetPasswordToken?: true
-    resetPasswordTokenExpiry?: true
+    refreshToken?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1825,11 +1913,7 @@ export namespace Prisma {
     bio: string | null
     location: string | null
     socials: JsonValue | null
-    isVerified: boolean
-    verificationToken: string | null
-    verificationTokenExpiry: Date | null
-    resetPasswordToken: string | null
-    resetPasswordTokenExpiry: Date | null
+    refreshToken: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1862,17 +1946,14 @@ export namespace Prisma {
     bio?: boolean
     location?: boolean
     socials?: boolean
-    isVerified?: boolean
-    verificationToken?: boolean
-    verificationTokenExpiry?: boolean
-    resetPasswordToken?: boolean
-    resetPasswordTokenExpiry?: boolean
+    refreshToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
     submissions?: boolean | User$submissionsArgs<ExtArgs>
     problemsSolved?: boolean | User$problemsSolvedArgs<ExtArgs>
     plalists?: boolean | User$plalistsArgs<ExtArgs>
+    oAuthAccounts?: boolean | User$oAuthAccountsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1887,11 +1968,7 @@ export namespace Prisma {
     bio?: boolean
     location?: boolean
     socials?: boolean
-    isVerified?: boolean
-    verificationToken?: boolean
-    verificationTokenExpiry?: boolean
-    resetPasswordToken?: boolean
-    resetPasswordTokenExpiry?: boolean
+    refreshToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1907,11 +1984,7 @@ export namespace Prisma {
     bio?: boolean
     location?: boolean
     socials?: boolean
-    isVerified?: boolean
-    verificationToken?: boolean
-    verificationTokenExpiry?: boolean
-    resetPasswordToken?: boolean
-    resetPasswordTokenExpiry?: boolean
+    refreshToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1927,21 +2000,18 @@ export namespace Prisma {
     bio?: boolean
     location?: boolean
     socials?: boolean
-    isVerified?: boolean
-    verificationToken?: boolean
-    verificationTokenExpiry?: boolean
-    resetPasswordToken?: boolean
-    resetPasswordTokenExpiry?: boolean
+    refreshToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "password" | "avatar" | "role" | "bio" | "location" | "socials" | "isVerified" | "verificationToken" | "verificationTokenExpiry" | "resetPasswordToken" | "resetPasswordTokenExpiry" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "email" | "password" | "avatar" | "role" | "bio" | "location" | "socials" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submissions?: boolean | User$submissionsArgs<ExtArgs>
     problemsSolved?: boolean | User$problemsSolvedArgs<ExtArgs>
     plalists?: boolean | User$plalistsArgs<ExtArgs>
+    oAuthAccounts?: boolean | User$oAuthAccountsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1954,6 +2024,7 @@ export namespace Prisma {
       submissions: Prisma.$SubmissionPayload<ExtArgs>[]
       problemsSolved: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       plalists: Prisma.$PlaylistPayload<ExtArgs>[]
+      oAuthAccounts: Prisma.$oAuthAccountPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1966,11 +2037,7 @@ export namespace Prisma {
       bio: string | null
       location: string | null
       socials: Prisma.JsonValue | null
-      isVerified: boolean
-      verificationToken: string | null
-      verificationTokenExpiry: Date | null
-      resetPasswordToken: string | null
-      resetPasswordTokenExpiry: Date | null
+      refreshToken: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2371,6 +2438,7 @@ export namespace Prisma {
     submissions<T extends User$submissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     problemsSolved<T extends User$problemsSolvedArgs<ExtArgs> = {}>(args?: Subset<T, User$problemsSolvedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     plalists<T extends User$plalistsArgs<ExtArgs> = {}>(args?: Subset<T, User$plalistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    oAuthAccounts<T extends User$oAuthAccountsArgs<ExtArgs> = {}>(args?: Subset<T, User$oAuthAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2410,11 +2478,7 @@ export namespace Prisma {
     readonly bio: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
     readonly socials: FieldRef<"User", 'Json'>
-    readonly isVerified: FieldRef<"User", 'Boolean'>
-    readonly verificationToken: FieldRef<"User", 'String'>
-    readonly verificationTokenExpiry: FieldRef<"User", 'DateTime'>
-    readonly resetPasswordToken: FieldRef<"User", 'String'>
-    readonly resetPasswordTokenExpiry: FieldRef<"User", 'DateTime'>
+    readonly refreshToken: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2901,6 +2965,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.oAuthAccounts
+   */
+  export type User$oAuthAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    where?: oAuthAccountWhereInput
+    orderBy?: oAuthAccountOrderByWithRelationInput | oAuthAccountOrderByWithRelationInput[]
+    cursor?: oAuthAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OAuthAccountScalarFieldEnum | OAuthAccountScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2916,6 +3004,1077 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model oAuthAccount
+   */
+
+  export type AggregateOAuthAccount = {
+    _count: OAuthAccountCountAggregateOutputType | null
+    _min: OAuthAccountMinAggregateOutputType | null
+    _max: OAuthAccountMaxAggregateOutputType | null
+  }
+
+  export type OAuthAccountMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    provider: $Enums.Provider | null
+    providerId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OAuthAccountMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    provider: $Enums.Provider | null
+    providerId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OAuthAccountCountAggregateOutputType = {
+    id: number
+    userId: number
+    provider: number
+    providerId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OAuthAccountMinAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    providerId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OAuthAccountMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    providerId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OAuthAccountCountAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    providerId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OAuthAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which oAuthAccount to aggregate.
+     */
+    where?: oAuthAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oAuthAccounts to fetch.
+     */
+    orderBy?: oAuthAccountOrderByWithRelationInput | oAuthAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: oAuthAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oAuthAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oAuthAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned oAuthAccounts
+    **/
+    _count?: true | OAuthAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OAuthAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OAuthAccountMaxAggregateInputType
+  }
+
+  export type GetOAuthAccountAggregateType<T extends OAuthAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateOAuthAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOAuthAccount[P]>
+      : GetScalarType<T[P], AggregateOAuthAccount[P]>
+  }
+
+
+
+
+  export type oAuthAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: oAuthAccountWhereInput
+    orderBy?: oAuthAccountOrderByWithAggregationInput | oAuthAccountOrderByWithAggregationInput[]
+    by: OAuthAccountScalarFieldEnum[] | OAuthAccountScalarFieldEnum
+    having?: oAuthAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OAuthAccountCountAggregateInputType | true
+    _min?: OAuthAccountMinAggregateInputType
+    _max?: OAuthAccountMaxAggregateInputType
+  }
+
+  export type OAuthAccountGroupByOutputType = {
+    id: string
+    userId: string
+    provider: $Enums.Provider
+    providerId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: OAuthAccountCountAggregateOutputType | null
+    _min: OAuthAccountMinAggregateOutputType | null
+    _max: OAuthAccountMaxAggregateOutputType | null
+  }
+
+  type GetOAuthAccountGroupByPayload<T extends oAuthAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OAuthAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OAuthAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OAuthAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], OAuthAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type oAuthAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oAuthAccount"]>
+
+  export type oAuthAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oAuthAccount"]>
+
+  export type oAuthAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oAuthAccount"]>
+
+  export type oAuthAccountSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type oAuthAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "createdAt" | "updatedAt", ExtArgs["result"]["oAuthAccount"]>
+  export type oAuthAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type oAuthAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type oAuthAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $oAuthAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "oAuthAccount"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      provider: $Enums.Provider
+      providerId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["oAuthAccount"]>
+    composites: {}
+  }
+
+  type oAuthAccountGetPayload<S extends boolean | null | undefined | oAuthAccountDefaultArgs> = $Result.GetResult<Prisma.$oAuthAccountPayload, S>
+
+  type oAuthAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<oAuthAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OAuthAccountCountAggregateInputType | true
+    }
+
+  export interface oAuthAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['oAuthAccount'], meta: { name: 'oAuthAccount' } }
+    /**
+     * Find zero or one OAuthAccount that matches the filter.
+     * @param {oAuthAccountFindUniqueArgs} args - Arguments to find a OAuthAccount
+     * @example
+     * // Get one OAuthAccount
+     * const oAuthAccount = await prisma.oAuthAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends oAuthAccountFindUniqueArgs>(args: SelectSubset<T, oAuthAccountFindUniqueArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OAuthAccount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {oAuthAccountFindUniqueOrThrowArgs} args - Arguments to find a OAuthAccount
+     * @example
+     * // Get one OAuthAccount
+     * const oAuthAccount = await prisma.oAuthAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends oAuthAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, oAuthAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OAuthAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oAuthAccountFindFirstArgs} args - Arguments to find a OAuthAccount
+     * @example
+     * // Get one OAuthAccount
+     * const oAuthAccount = await prisma.oAuthAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends oAuthAccountFindFirstArgs>(args?: SelectSubset<T, oAuthAccountFindFirstArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OAuthAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oAuthAccountFindFirstOrThrowArgs} args - Arguments to find a OAuthAccount
+     * @example
+     * // Get one OAuthAccount
+     * const oAuthAccount = await prisma.oAuthAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends oAuthAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, oAuthAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OAuthAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oAuthAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OAuthAccounts
+     * const oAuthAccounts = await prisma.oAuthAccount.findMany()
+     * 
+     * // Get first 10 OAuthAccounts
+     * const oAuthAccounts = await prisma.oAuthAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oAuthAccountWithIdOnly = await prisma.oAuthAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends oAuthAccountFindManyArgs>(args?: SelectSubset<T, oAuthAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OAuthAccount.
+     * @param {oAuthAccountCreateArgs} args - Arguments to create a OAuthAccount.
+     * @example
+     * // Create one OAuthAccount
+     * const OAuthAccount = await prisma.oAuthAccount.create({
+     *   data: {
+     *     // ... data to create a OAuthAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends oAuthAccountCreateArgs>(args: SelectSubset<T, oAuthAccountCreateArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OAuthAccounts.
+     * @param {oAuthAccountCreateManyArgs} args - Arguments to create many OAuthAccounts.
+     * @example
+     * // Create many OAuthAccounts
+     * const oAuthAccount = await prisma.oAuthAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends oAuthAccountCreateManyArgs>(args?: SelectSubset<T, oAuthAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OAuthAccounts and returns the data saved in the database.
+     * @param {oAuthAccountCreateManyAndReturnArgs} args - Arguments to create many OAuthAccounts.
+     * @example
+     * // Create many OAuthAccounts
+     * const oAuthAccount = await prisma.oAuthAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OAuthAccounts and only return the `id`
+     * const oAuthAccountWithIdOnly = await prisma.oAuthAccount.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends oAuthAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, oAuthAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OAuthAccount.
+     * @param {oAuthAccountDeleteArgs} args - Arguments to delete one OAuthAccount.
+     * @example
+     * // Delete one OAuthAccount
+     * const OAuthAccount = await prisma.oAuthAccount.delete({
+     *   where: {
+     *     // ... filter to delete one OAuthAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends oAuthAccountDeleteArgs>(args: SelectSubset<T, oAuthAccountDeleteArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OAuthAccount.
+     * @param {oAuthAccountUpdateArgs} args - Arguments to update one OAuthAccount.
+     * @example
+     * // Update one OAuthAccount
+     * const oAuthAccount = await prisma.oAuthAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends oAuthAccountUpdateArgs>(args: SelectSubset<T, oAuthAccountUpdateArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OAuthAccounts.
+     * @param {oAuthAccountDeleteManyArgs} args - Arguments to filter OAuthAccounts to delete.
+     * @example
+     * // Delete a few OAuthAccounts
+     * const { count } = await prisma.oAuthAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends oAuthAccountDeleteManyArgs>(args?: SelectSubset<T, oAuthAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OAuthAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oAuthAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OAuthAccounts
+     * const oAuthAccount = await prisma.oAuthAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends oAuthAccountUpdateManyArgs>(args: SelectSubset<T, oAuthAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OAuthAccounts and returns the data updated in the database.
+     * @param {oAuthAccountUpdateManyAndReturnArgs} args - Arguments to update many OAuthAccounts.
+     * @example
+     * // Update many OAuthAccounts
+     * const oAuthAccount = await prisma.oAuthAccount.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OAuthAccounts and only return the `id`
+     * const oAuthAccountWithIdOnly = await prisma.oAuthAccount.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends oAuthAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, oAuthAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OAuthAccount.
+     * @param {oAuthAccountUpsertArgs} args - Arguments to update or create a OAuthAccount.
+     * @example
+     * // Update or create a OAuthAccount
+     * const oAuthAccount = await prisma.oAuthAccount.upsert({
+     *   create: {
+     *     // ... data to create a OAuthAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OAuthAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends oAuthAccountUpsertArgs>(args: SelectSubset<T, oAuthAccountUpsertArgs<ExtArgs>>): Prisma__oAuthAccountClient<$Result.GetResult<Prisma.$oAuthAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OAuthAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oAuthAccountCountArgs} args - Arguments to filter OAuthAccounts to count.
+     * @example
+     * // Count the number of OAuthAccounts
+     * const count = await prisma.oAuthAccount.count({
+     *   where: {
+     *     // ... the filter for the OAuthAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends oAuthAccountCountArgs>(
+      args?: Subset<T, oAuthAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OAuthAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OAuthAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OAuthAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OAuthAccountAggregateArgs>(args: Subset<T, OAuthAccountAggregateArgs>): Prisma.PrismaPromise<GetOAuthAccountAggregateType<T>>
+
+    /**
+     * Group by OAuthAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {oAuthAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends oAuthAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: oAuthAccountGroupByArgs['orderBy'] }
+        : { orderBy?: oAuthAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, oAuthAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOAuthAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the oAuthAccount model
+   */
+  readonly fields: oAuthAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for oAuthAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__oAuthAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the oAuthAccount model
+   */
+  interface oAuthAccountFieldRefs {
+    readonly id: FieldRef<"oAuthAccount", 'String'>
+    readonly userId: FieldRef<"oAuthAccount", 'String'>
+    readonly provider: FieldRef<"oAuthAccount", 'Provider'>
+    readonly providerId: FieldRef<"oAuthAccount", 'String'>
+    readonly createdAt: FieldRef<"oAuthAccount", 'DateTime'>
+    readonly updatedAt: FieldRef<"oAuthAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * oAuthAccount findUnique
+   */
+  export type oAuthAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which oAuthAccount to fetch.
+     */
+    where: oAuthAccountWhereUniqueInput
+  }
+
+  /**
+   * oAuthAccount findUniqueOrThrow
+   */
+  export type oAuthAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which oAuthAccount to fetch.
+     */
+    where: oAuthAccountWhereUniqueInput
+  }
+
+  /**
+   * oAuthAccount findFirst
+   */
+  export type oAuthAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which oAuthAccount to fetch.
+     */
+    where?: oAuthAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oAuthAccounts to fetch.
+     */
+    orderBy?: oAuthAccountOrderByWithRelationInput | oAuthAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for oAuthAccounts.
+     */
+    cursor?: oAuthAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oAuthAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oAuthAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of oAuthAccounts.
+     */
+    distinct?: OAuthAccountScalarFieldEnum | OAuthAccountScalarFieldEnum[]
+  }
+
+  /**
+   * oAuthAccount findFirstOrThrow
+   */
+  export type oAuthAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which oAuthAccount to fetch.
+     */
+    where?: oAuthAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oAuthAccounts to fetch.
+     */
+    orderBy?: oAuthAccountOrderByWithRelationInput | oAuthAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for oAuthAccounts.
+     */
+    cursor?: oAuthAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oAuthAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oAuthAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of oAuthAccounts.
+     */
+    distinct?: OAuthAccountScalarFieldEnum | OAuthAccountScalarFieldEnum[]
+  }
+
+  /**
+   * oAuthAccount findMany
+   */
+  export type oAuthAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which oAuthAccounts to fetch.
+     */
+    where?: oAuthAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of oAuthAccounts to fetch.
+     */
+    orderBy?: oAuthAccountOrderByWithRelationInput | oAuthAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing oAuthAccounts.
+     */
+    cursor?: oAuthAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` oAuthAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` oAuthAccounts.
+     */
+    skip?: number
+    distinct?: OAuthAccountScalarFieldEnum | OAuthAccountScalarFieldEnum[]
+  }
+
+  /**
+   * oAuthAccount create
+   */
+  export type oAuthAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a oAuthAccount.
+     */
+    data: XOR<oAuthAccountCreateInput, oAuthAccountUncheckedCreateInput>
+  }
+
+  /**
+   * oAuthAccount createMany
+   */
+  export type oAuthAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many oAuthAccounts.
+     */
+    data: oAuthAccountCreateManyInput | oAuthAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * oAuthAccount createManyAndReturn
+   */
+  export type oAuthAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * The data used to create many oAuthAccounts.
+     */
+    data: oAuthAccountCreateManyInput | oAuthAccountCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * oAuthAccount update
+   */
+  export type oAuthAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a oAuthAccount.
+     */
+    data: XOR<oAuthAccountUpdateInput, oAuthAccountUncheckedUpdateInput>
+    /**
+     * Choose, which oAuthAccount to update.
+     */
+    where: oAuthAccountWhereUniqueInput
+  }
+
+  /**
+   * oAuthAccount updateMany
+   */
+  export type oAuthAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update oAuthAccounts.
+     */
+    data: XOR<oAuthAccountUpdateManyMutationInput, oAuthAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which oAuthAccounts to update
+     */
+    where?: oAuthAccountWhereInput
+    /**
+     * Limit how many oAuthAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * oAuthAccount updateManyAndReturn
+   */
+  export type oAuthAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * The data used to update oAuthAccounts.
+     */
+    data: XOR<oAuthAccountUpdateManyMutationInput, oAuthAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which oAuthAccounts to update
+     */
+    where?: oAuthAccountWhereInput
+    /**
+     * Limit how many oAuthAccounts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * oAuthAccount upsert
+   */
+  export type oAuthAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the oAuthAccount to update in case it exists.
+     */
+    where: oAuthAccountWhereUniqueInput
+    /**
+     * In case the oAuthAccount found by the `where` argument doesn't exist, create a new oAuthAccount with this data.
+     */
+    create: XOR<oAuthAccountCreateInput, oAuthAccountUncheckedCreateInput>
+    /**
+     * In case the oAuthAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<oAuthAccountUpdateInput, oAuthAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * oAuthAccount delete
+   */
+  export type oAuthAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
+    /**
+     * Filter which oAuthAccount to delete.
+     */
+    where: oAuthAccountWhereUniqueInput
+  }
+
+  /**
+   * oAuthAccount deleteMany
+   */
+  export type oAuthAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which oAuthAccounts to delete
+     */
+    where?: oAuthAccountWhereInput
+    /**
+     * Limit how many oAuthAccounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * oAuthAccount without action
+   */
+  export type oAuthAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the oAuthAccount
+     */
+    select?: oAuthAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the oAuthAccount
+     */
+    omit?: oAuthAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: oAuthAccountInclude<ExtArgs> | null
   }
 
 
@@ -2938,6 +4097,7 @@ export namespace Prisma {
     constraints: string | null
     hints: string | null
     editorial: string | null
+    isPublic: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2951,6 +4111,7 @@ export namespace Prisma {
     constraints: string | null
     hints: string | null
     editorial: string | null
+    isPublic: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2967,8 +4128,10 @@ export namespace Prisma {
     hints: number
     editorial: number
     testcases: number
+    sampleTestCases: number
     codeSnippets: number
     referenceSolutions: number
+    isPublic: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2984,6 +4147,7 @@ export namespace Prisma {
     constraints?: true
     hints?: true
     editorial?: true
+    isPublic?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2997,6 +4161,7 @@ export namespace Prisma {
     constraints?: true
     hints?: true
     editorial?: true
+    isPublic?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3013,8 +4178,10 @@ export namespace Prisma {
     hints?: true
     editorial?: true
     testcases?: true
+    sampleTestCases?: true
     codeSnippets?: true
     referenceSolutions?: true
+    isPublic?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3104,8 +4271,10 @@ export namespace Prisma {
     hints: string | null
     editorial: string | null
     testcases: JsonValue
+    sampleTestCases: JsonValue
     codeSnippets: JsonValue
     referenceSolutions: JsonValue
+    isPublic: boolean
     createdAt: Date
     updatedAt: Date
     _count: ProblemCountAggregateOutputType | null
@@ -3139,8 +4308,10 @@ export namespace Prisma {
     hints?: boolean
     editorial?: boolean
     testcases?: boolean
+    sampleTestCases?: boolean
     codeSnippets?: boolean
     referenceSolutions?: boolean
+    isPublic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3162,8 +4333,10 @@ export namespace Prisma {
     hints?: boolean
     editorial?: boolean
     testcases?: boolean
+    sampleTestCases?: boolean
     codeSnippets?: boolean
     referenceSolutions?: boolean
+    isPublic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3181,8 +4354,10 @@ export namespace Prisma {
     hints?: boolean
     editorial?: boolean
     testcases?: boolean
+    sampleTestCases?: boolean
     codeSnippets?: boolean
     referenceSolutions?: boolean
+    isPublic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3200,13 +4375,15 @@ export namespace Prisma {
     hints?: boolean
     editorial?: boolean
     testcases?: boolean
+    sampleTestCases?: boolean
     codeSnippets?: boolean
     referenceSolutions?: boolean
+    isPublic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "difficulty" | "tags" | "userId" | "examples" | "constraints" | "hints" | "editorial" | "testcases" | "codeSnippets" | "referenceSolutions" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
+  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "difficulty" | "tags" | "userId" | "examples" | "constraints" | "hints" | "editorial" | "testcases" | "sampleTestCases" | "codeSnippets" | "referenceSolutions" | "isPublic" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
   export type ProblemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     submissions?: boolean | Problem$submissionsArgs<ExtArgs>
@@ -3241,8 +4418,10 @@ export namespace Prisma {
       hints: string | null
       editorial: string | null
       testcases: Prisma.JsonValue
+      sampleTestCases: Prisma.JsonValue
       codeSnippets: Prisma.JsonValue
       referenceSolutions: Prisma.JsonValue
+      isPublic: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["problem"]>
@@ -3683,8 +4862,10 @@ export namespace Prisma {
     readonly hints: FieldRef<"Problem", 'String'>
     readonly editorial: FieldRef<"Problem", 'String'>
     readonly testcases: FieldRef<"Problem", 'Json'>
+    readonly sampleTestCases: FieldRef<"Problem", 'Json'>
     readonly codeSnippets: FieldRef<"Problem", 'Json'>
     readonly referenceSolutions: FieldRef<"Problem", 'Json'>
+    readonly isPublic: FieldRef<"Problem", 'Boolean'>
     readonly createdAt: FieldRef<"Problem", 'DateTime'>
     readonly updatedAt: FieldRef<"Problem", 'DateTime'>
   }
@@ -4187,6 +5368,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     problemId: string | null
+    code: string | null
     language: string | null
     stdin: string | null
     stdout: string | null
@@ -4195,6 +5377,7 @@ export namespace Prisma {
     status: string | null
     memory: string | null
     time: string | null
+    isSubmission: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4203,6 +5386,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     problemId: string | null
+    code: string | null
     language: string | null
     stdin: string | null
     stdout: string | null
@@ -4211,6 +5395,7 @@ export namespace Prisma {
     status: string | null
     memory: string | null
     time: string | null
+    isSubmission: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4228,6 +5413,7 @@ export namespace Prisma {
     status: number
     memory: number
     time: number
+    isSubmission: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4238,6 +5424,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     problemId?: true
+    code?: true
     language?: true
     stdin?: true
     stdout?: true
@@ -4246,6 +5433,7 @@ export namespace Prisma {
     status?: true
     memory?: true
     time?: true
+    isSubmission?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4254,6 +5442,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     problemId?: true
+    code?: true
     language?: true
     stdin?: true
     stdout?: true
@@ -4262,6 +5451,7 @@ export namespace Prisma {
     status?: true
     memory?: true
     time?: true
+    isSubmission?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4279,6 +5469,7 @@ export namespace Prisma {
     status?: true
     memory?: true
     time?: true
+    isSubmission?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4360,7 +5551,7 @@ export namespace Prisma {
     id: string
     userId: string
     problemId: string
-    code: JsonValue
+    code: string
     language: string
     stdin: string | null
     stdout: string | null
@@ -4369,6 +5560,7 @@ export namespace Prisma {
     status: string
     memory: string | null
     time: string | null
+    isSubmission: boolean
     createdAt: Date
     updatedAt: Date
     _count: SubmissionCountAggregateOutputType | null
@@ -4403,6 +5595,7 @@ export namespace Prisma {
     status?: boolean
     memory?: boolean
     time?: boolean
+    isSubmission?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4424,6 +5617,7 @@ export namespace Prisma {
     status?: boolean
     memory?: boolean
     time?: boolean
+    isSubmission?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4443,6 +5637,7 @@ export namespace Prisma {
     status?: boolean
     memory?: boolean
     time?: boolean
+    isSubmission?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4462,11 +5657,12 @@ export namespace Prisma {
     status?: boolean
     memory?: boolean
     time?: boolean
+    isSubmission?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "problemId" | "code" | "language" | "stdin" | "stdout" | "stderr" | "compileOutput" | "status" | "memory" | "time" | "createdAt" | "updatedAt", ExtArgs["result"]["submission"]>
+  export type SubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "problemId" | "code" | "language" | "stdin" | "stdout" | "stderr" | "compileOutput" | "status" | "memory" | "time" | "isSubmission" | "createdAt" | "updatedAt", ExtArgs["result"]["submission"]>
   export type SubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
@@ -4493,7 +5689,7 @@ export namespace Prisma {
       id: string
       userId: string
       problemId: string
-      code: Prisma.JsonValue
+      code: string
       language: string
       stdin: string | null
       stdout: string | null
@@ -4502,6 +5698,7 @@ export namespace Prisma {
       status: string
       memory: string | null
       time: string | null
+      isSubmission: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["submission"]>
@@ -4933,7 +6130,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Submission", 'String'>
     readonly userId: FieldRef<"Submission", 'String'>
     readonly problemId: FieldRef<"Submission", 'String'>
-    readonly code: FieldRef<"Submission", 'Json'>
+    readonly code: FieldRef<"Submission", 'String'>
     readonly language: FieldRef<"Submission", 'String'>
     readonly stdin: FieldRef<"Submission", 'String'>
     readonly stdout: FieldRef<"Submission", 'String'>
@@ -4942,6 +6139,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Submission", 'String'>
     readonly memory: FieldRef<"Submission", 'String'>
     readonly time: FieldRef<"Submission", 'String'>
+    readonly isSubmission: FieldRef<"Submission", 'Boolean'>
     readonly createdAt: FieldRef<"Submission", 'DateTime'>
     readonly updatedAt: FieldRef<"Submission", 'DateTime'>
   }
@@ -9849,16 +11047,24 @@ export namespace Prisma {
     bio: 'bio',
     location: 'location',
     socials: 'socials',
-    isVerified: 'isVerified',
-    verificationToken: 'verificationToken',
-    verificationTokenExpiry: 'verificationTokenExpiry',
-    resetPasswordToken: 'resetPasswordToken',
-    resetPasswordTokenExpiry: 'resetPasswordTokenExpiry',
+    refreshToken: 'refreshToken',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const OAuthAccountScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    provider: 'provider',
+    providerId: 'providerId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OAuthAccountScalarFieldEnum = (typeof OAuthAccountScalarFieldEnum)[keyof typeof OAuthAccountScalarFieldEnum]
 
 
   export const ProblemScalarFieldEnum: {
@@ -9873,8 +11079,10 @@ export namespace Prisma {
     hints: 'hints',
     editorial: 'editorial',
     testcases: 'testcases',
+    sampleTestCases: 'sampleTestCases',
     codeSnippets: 'codeSnippets',
     referenceSolutions: 'referenceSolutions',
+    isPublic: 'isPublic',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9895,6 +11103,7 @@ export namespace Prisma {
     status: 'status',
     memory: 'memory',
     time: 'time',
+    isSubmission: 'isSubmission',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10052,13 +11261,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -10073,6 +11275,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Provider'
+   */
+  export type EnumProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Provider'>
+    
+
+
+  /**
+   * Reference to a field of type 'Provider[]'
+   */
+  export type ListEnumProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Provider[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Difficulty'
    */
   export type EnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty'>
@@ -10083,6 +11299,13 @@ export namespace Prisma {
    * Reference to a field of type 'Difficulty[]'
    */
   export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -10131,17 +11354,14 @@ export namespace Prisma {
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
     socials?: JsonNullableFilter<"User">
-    isVerified?: BoolFilter<"User"> | boolean
-    verificationToken?: StringNullableFilter<"User"> | string | null
-    verificationTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
-    resetPasswordToken?: StringNullableFilter<"User"> | string | null
-    resetPasswordTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
+    refreshToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     problems?: ProblemListRelationFilter
     submissions?: SubmissionListRelationFilter
     problemsSolved?: ProblemSolvedListRelationFilter
     plalists?: PlaylistListRelationFilter
+    oAuthAccounts?: OAuthAccountListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10155,17 +11375,14 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
     socials?: SortOrderInput | SortOrder
-    isVerified?: SortOrder
-    verificationToken?: SortOrderInput | SortOrder
-    verificationTokenExpiry?: SortOrderInput | SortOrder
-    resetPasswordToken?: SortOrderInput | SortOrder
-    resetPasswordTokenExpiry?: SortOrderInput | SortOrder
+    refreshToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     problems?: ProblemOrderByRelationAggregateInput
     submissions?: SubmissionOrderByRelationAggregateInput
     problemsSolved?: ProblemSolvedOrderByRelationAggregateInput
     plalists?: PlaylistOrderByRelationAggregateInput
+    oAuthAccounts?: oAuthAccountOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10182,17 +11399,14 @@ export namespace Prisma {
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
     socials?: JsonNullableFilter<"User">
-    isVerified?: BoolFilter<"User"> | boolean
-    verificationToken?: StringNullableFilter<"User"> | string | null
-    verificationTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
-    resetPasswordToken?: StringNullableFilter<"User"> | string | null
-    resetPasswordTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
+    refreshToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     problems?: ProblemListRelationFilter
     submissions?: SubmissionListRelationFilter
     problemsSolved?: ProblemSolvedListRelationFilter
     plalists?: PlaylistListRelationFilter
+    oAuthAccounts?: OAuthAccountListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10206,11 +11420,7 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
     socials?: SortOrderInput | SortOrder
-    isVerified?: SortOrder
-    verificationToken?: SortOrderInput | SortOrder
-    verificationTokenExpiry?: SortOrderInput | SortOrder
-    resetPasswordToken?: SortOrderInput | SortOrder
-    resetPasswordTokenExpiry?: SortOrderInput | SortOrder
+    refreshToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -10232,13 +11442,69 @@ export namespace Prisma {
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     location?: StringNullableWithAggregatesFilter<"User"> | string | null
     socials?: JsonNullableWithAggregatesFilter<"User">
-    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
-    verificationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
-    verificationTokenExpiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
-    resetPasswordTokenExpiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type oAuthAccountWhereInput = {
+    AND?: oAuthAccountWhereInput | oAuthAccountWhereInput[]
+    OR?: oAuthAccountWhereInput[]
+    NOT?: oAuthAccountWhereInput | oAuthAccountWhereInput[]
+    id?: StringFilter<"oAuthAccount"> | string
+    userId?: StringFilter<"oAuthAccount"> | string
+    provider?: EnumProviderFilter<"oAuthAccount"> | $Enums.Provider
+    providerId?: StringFilter<"oAuthAccount"> | string
+    createdAt?: DateTimeFilter<"oAuthAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"oAuthAccount"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type oAuthAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type oAuthAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: oAuthAccountWhereInput | oAuthAccountWhereInput[]
+    OR?: oAuthAccountWhereInput[]
+    NOT?: oAuthAccountWhereInput | oAuthAccountWhereInput[]
+    userId?: StringFilter<"oAuthAccount"> | string
+    provider?: EnumProviderFilter<"oAuthAccount"> | $Enums.Provider
+    providerId?: StringFilter<"oAuthAccount"> | string
+    createdAt?: DateTimeFilter<"oAuthAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"oAuthAccount"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type oAuthAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: oAuthAccountCountOrderByAggregateInput
+    _max?: oAuthAccountMaxOrderByAggregateInput
+    _min?: oAuthAccountMinOrderByAggregateInput
+  }
+
+  export type oAuthAccountScalarWhereWithAggregatesInput = {
+    AND?: oAuthAccountScalarWhereWithAggregatesInput | oAuthAccountScalarWhereWithAggregatesInput[]
+    OR?: oAuthAccountScalarWhereWithAggregatesInput[]
+    NOT?: oAuthAccountScalarWhereWithAggregatesInput | oAuthAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"oAuthAccount"> | string
+    userId?: StringWithAggregatesFilter<"oAuthAccount"> | string
+    provider?: EnumProviderWithAggregatesFilter<"oAuthAccount"> | $Enums.Provider
+    providerId?: StringWithAggregatesFilter<"oAuthAccount"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"oAuthAccount"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"oAuthAccount"> | Date | string
   }
 
   export type ProblemWhereInput = {
@@ -10256,8 +11522,10 @@ export namespace Prisma {
     hints?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
     testcases?: JsonFilter<"Problem">
+    sampleTestCases?: JsonFilter<"Problem">
     codeSnippets?: JsonFilter<"Problem">
     referenceSolutions?: JsonFilter<"Problem">
+    isPublic?: BoolFilter<"Problem"> | boolean
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10278,8 +11546,10 @@ export namespace Prisma {
     hints?: SortOrderInput | SortOrder
     editorial?: SortOrderInput | SortOrder
     testcases?: SortOrder
+    sampleTestCases?: SortOrder
     codeSnippets?: SortOrder
     referenceSolutions?: SortOrder
+    isPublic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -10303,8 +11573,10 @@ export namespace Prisma {
     hints?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
     testcases?: JsonFilter<"Problem">
+    sampleTestCases?: JsonFilter<"Problem">
     codeSnippets?: JsonFilter<"Problem">
     referenceSolutions?: JsonFilter<"Problem">
+    isPublic?: BoolFilter<"Problem"> | boolean
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10325,8 +11597,10 @@ export namespace Prisma {
     hints?: SortOrderInput | SortOrder
     editorial?: SortOrderInput | SortOrder
     testcases?: SortOrder
+    sampleTestCases?: SortOrder
     codeSnippets?: SortOrder
     referenceSolutions?: SortOrder
+    isPublic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProblemCountOrderByAggregateInput
@@ -10349,8 +11623,10 @@ export namespace Prisma {
     hints?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     editorial?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     testcases?: JsonWithAggregatesFilter<"Problem">
+    sampleTestCases?: JsonWithAggregatesFilter<"Problem">
     codeSnippets?: JsonWithAggregatesFilter<"Problem">
     referenceSolutions?: JsonWithAggregatesFilter<"Problem">
+    isPublic?: BoolWithAggregatesFilter<"Problem"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
   }
@@ -10362,7 +11638,7 @@ export namespace Prisma {
     id?: StringFilter<"Submission"> | string
     userId?: StringFilter<"Submission"> | string
     problemId?: StringFilter<"Submission"> | string
-    code?: JsonFilter<"Submission">
+    code?: StringFilter<"Submission"> | string
     language?: StringFilter<"Submission"> | string
     stdin?: StringNullableFilter<"Submission"> | string | null
     stdout?: StringNullableFilter<"Submission"> | string | null
@@ -10371,6 +11647,7 @@ export namespace Prisma {
     status?: StringFilter<"Submission"> | string
     memory?: StringNullableFilter<"Submission"> | string | null
     time?: StringNullableFilter<"Submission"> | string | null
+    isSubmission?: BoolFilter<"Submission"> | boolean
     createdAt?: DateTimeFilter<"Submission"> | Date | string
     updatedAt?: DateTimeFilter<"Submission"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10391,6 +11668,7 @@ export namespace Prisma {
     status?: SortOrder
     memory?: SortOrderInput | SortOrder
     time?: SortOrderInput | SortOrder
+    isSubmission?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -10405,7 +11683,7 @@ export namespace Prisma {
     NOT?: SubmissionWhereInput | SubmissionWhereInput[]
     userId?: StringFilter<"Submission"> | string
     problemId?: StringFilter<"Submission"> | string
-    code?: JsonFilter<"Submission">
+    code?: StringFilter<"Submission"> | string
     language?: StringFilter<"Submission"> | string
     stdin?: StringNullableFilter<"Submission"> | string | null
     stdout?: StringNullableFilter<"Submission"> | string | null
@@ -10414,6 +11692,7 @@ export namespace Prisma {
     status?: StringFilter<"Submission"> | string
     memory?: StringNullableFilter<"Submission"> | string | null
     time?: StringNullableFilter<"Submission"> | string | null
+    isSubmission?: BoolFilter<"Submission"> | boolean
     createdAt?: DateTimeFilter<"Submission"> | Date | string
     updatedAt?: DateTimeFilter<"Submission"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10434,6 +11713,7 @@ export namespace Prisma {
     status?: SortOrder
     memory?: SortOrderInput | SortOrder
     time?: SortOrderInput | SortOrder
+    isSubmission?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SubmissionCountOrderByAggregateInput
@@ -10448,7 +11728,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Submission"> | string
     userId?: StringWithAggregatesFilter<"Submission"> | string
     problemId?: StringWithAggregatesFilter<"Submission"> | string
-    code?: JsonWithAggregatesFilter<"Submission">
+    code?: StringWithAggregatesFilter<"Submission"> | string
     language?: StringWithAggregatesFilter<"Submission"> | string
     stdin?: StringNullableWithAggregatesFilter<"Submission"> | string | null
     stdout?: StringNullableWithAggregatesFilter<"Submission"> | string | null
@@ -10457,6 +11737,7 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter<"Submission"> | string
     memory?: StringNullableWithAggregatesFilter<"Submission"> | string | null
     time?: StringNullableWithAggregatesFilter<"Submission"> | string | null
+    isSubmission?: BoolWithAggregatesFilter<"Submission"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Submission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Submission"> | Date | string
   }
@@ -10756,17 +12037,14 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     plalists?: PlaylistCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10780,17 +12058,14 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     plalists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10804,17 +12079,14 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10828,17 +12100,14 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10852,11 +12121,7 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10872,11 +12137,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10892,11 +12153,69 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type oAuthAccountCreateInput = {
+    id?: string
+    provider?: $Enums.Provider
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutOAuthAccountsInput
+  }
+
+  export type oAuthAccountUncheckedCreateInput = {
+    id?: string
+    userId: string
+    provider?: $Enums.Provider
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type oAuthAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOAuthAccountsNestedInput
+  }
+
+  export type oAuthAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type oAuthAccountCreateManyInput = {
+    id?: string
+    userId: string
+    provider?: $Enums.Provider
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type oAuthAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type oAuthAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    providerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10912,8 +12231,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProblemsInput
@@ -10934,8 +12255,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -10954,8 +12277,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
@@ -10976,8 +12301,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -10997,8 +12324,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11014,8 +12343,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11032,15 +12363,17 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubmissionCreateInput = {
     id?: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -11049,6 +12382,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSubmissionsInput
@@ -11060,7 +12394,7 @@ export namespace Prisma {
     id?: string
     userId: string
     problemId: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -11069,6 +12403,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     testcases?: TestCaseResultUncheckedCreateNestedManyWithoutSubmissionInput
@@ -11076,7 +12411,7 @@ export namespace Prisma {
 
   export type SubmissionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11085,6 +12420,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubmissionsNestedInput
@@ -11096,7 +12432,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     problemId?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11105,6 +12441,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     testcases?: TestCaseResultUncheckedUpdateManyWithoutSubmissionNestedInput
@@ -11114,7 +12451,7 @@ export namespace Prisma {
     id?: string
     userId: string
     problemId: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -11123,13 +12460,14 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type SubmissionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11138,6 +12476,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11146,7 +12485,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     problemId?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11155,6 +12494,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11511,22 +12851,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -11562,6 +12886,12 @@ export namespace Prisma {
     none?: PlaylistWhereInput
   }
 
+  export type OAuthAccountListRelationFilter = {
+    every?: oAuthAccountWhereInput
+    some?: oAuthAccountWhereInput
+    none?: oAuthAccountWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11583,6 +12913,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type oAuthAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -11594,11 +12928,7 @@ export namespace Prisma {
     bio?: SortOrder
     location?: SortOrder
     socials?: SortOrder
-    isVerified?: SortOrder
-    verificationToken?: SortOrder
-    verificationTokenExpiry?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordTokenExpiry?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11613,11 +12943,7 @@ export namespace Prisma {
     role?: SortOrder
     bio?: SortOrder
     location?: SortOrder
-    isVerified?: SortOrder
-    verificationToken?: SortOrder
-    verificationTokenExpiry?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordTokenExpiry?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11632,11 +12958,7 @@ export namespace Prisma {
     role?: SortOrder
     bio?: SortOrder
     location?: SortOrder
-    isVerified?: SortOrder
-    verificationToken?: SortOrder
-    verificationTokenExpiry?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordTokenExpiry?: SortOrder
+    refreshToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11713,28 +13035,6 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -11747,6 +13047,55 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type EnumProviderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Provider | EnumProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderFilter<$PrismaModel> | $Enums.Provider
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type oAuthAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type oAuthAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type oAuthAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumProviderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Provider | EnumProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderWithAggregatesFilter<$PrismaModel> | $Enums.Provider
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProviderFilter<$PrismaModel>
+    _max?: NestedEnumProviderFilter<$PrismaModel>
   }
 
   export type EnumDifficultyFilter<$PrismaModel = never> = {
@@ -11787,9 +13136,9 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type ProblemInPlaylistListRelationFilter = {
@@ -11814,8 +13163,10 @@ export namespace Prisma {
     hints?: SortOrder
     editorial?: SortOrder
     testcases?: SortOrder
+    sampleTestCases?: SortOrder
     codeSnippets?: SortOrder
     referenceSolutions?: SortOrder
+    isPublic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11829,6 +13180,7 @@ export namespace Prisma {
     constraints?: SortOrder
     hints?: SortOrder
     editorial?: SortOrder
+    isPublic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11842,6 +13194,7 @@ export namespace Prisma {
     constraints?: SortOrder
     hints?: SortOrder
     editorial?: SortOrder
+    isPublic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11882,6 +13235,14 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type ProblemScalarRelationFilter = {
     is?: ProblemWhereInput
     isNot?: ProblemWhereInput
@@ -11910,6 +13271,7 @@ export namespace Prisma {
     status?: SortOrder
     memory?: SortOrder
     time?: SortOrder
+    isSubmission?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11918,6 +13280,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     problemId?: SortOrder
+    code?: SortOrder
     language?: SortOrder
     stdin?: SortOrder
     stdout?: SortOrder
@@ -11926,6 +13289,7 @@ export namespace Prisma {
     status?: SortOrder
     memory?: SortOrder
     time?: SortOrder
+    isSubmission?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11934,6 +13298,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     problemId?: SortOrder
+    code?: SortOrder
     language?: SortOrder
     stdin?: SortOrder
     stdout?: SortOrder
@@ -11942,6 +13307,7 @@ export namespace Prisma {
     status?: SortOrder
     memory?: SortOrder
     time?: SortOrder
+    isSubmission?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12160,6 +13526,13 @@ export namespace Prisma {
     connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
   }
 
+  export type oAuthAccountCreateNestedManyWithoutUserInput = {
+    create?: XOR<oAuthAccountCreateWithoutUserInput, oAuthAccountUncheckedCreateWithoutUserInput> | oAuthAccountCreateWithoutUserInput[] | oAuthAccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: oAuthAccountCreateOrConnectWithoutUserInput | oAuthAccountCreateOrConnectWithoutUserInput[]
+    createMany?: oAuthAccountCreateManyUserInputEnvelope
+    connect?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+  }
+
   export type ProblemUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
@@ -12188,6 +13561,13 @@ export namespace Prisma {
     connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
   }
 
+  export type oAuthAccountUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<oAuthAccountCreateWithoutUserInput, oAuthAccountUncheckedCreateWithoutUserInput> | oAuthAccountCreateWithoutUserInput[] | oAuthAccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: oAuthAccountCreateOrConnectWithoutUserInput | oAuthAccountCreateOrConnectWithoutUserInput[]
+    createMany?: oAuthAccountCreateManyUserInputEnvelope
+    connect?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -12198,14 +13578,6 @@ export namespace Prisma {
 
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -12268,6 +13640,20 @@ export namespace Prisma {
     deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
   }
 
+  export type oAuthAccountUpdateManyWithoutUserNestedInput = {
+    create?: XOR<oAuthAccountCreateWithoutUserInput, oAuthAccountUncheckedCreateWithoutUserInput> | oAuthAccountCreateWithoutUserInput[] | oAuthAccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: oAuthAccountCreateOrConnectWithoutUserInput | oAuthAccountCreateOrConnectWithoutUserInput[]
+    upsert?: oAuthAccountUpsertWithWhereUniqueWithoutUserInput | oAuthAccountUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: oAuthAccountCreateManyUserInputEnvelope
+    set?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    disconnect?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    delete?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    connect?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    update?: oAuthAccountUpdateWithWhereUniqueWithoutUserInput | oAuthAccountUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: oAuthAccountUpdateManyWithWhereWithoutUserInput | oAuthAccountUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: oAuthAccountScalarWhereInput | oAuthAccountScalarWhereInput[]
+  }
+
   export type ProblemUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
@@ -12322,6 +13708,38 @@ export namespace Prisma {
     update?: PlaylistUpdateWithWhereUniqueWithoutUserInput | PlaylistUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PlaylistUpdateManyWithWhereWithoutUserInput | PlaylistUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+  }
+
+  export type oAuthAccountUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<oAuthAccountCreateWithoutUserInput, oAuthAccountUncheckedCreateWithoutUserInput> | oAuthAccountCreateWithoutUserInput[] | oAuthAccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: oAuthAccountCreateOrConnectWithoutUserInput | oAuthAccountCreateOrConnectWithoutUserInput[]
+    upsert?: oAuthAccountUpsertWithWhereUniqueWithoutUserInput | oAuthAccountUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: oAuthAccountCreateManyUserInputEnvelope
+    set?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    disconnect?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    delete?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    connect?: oAuthAccountWhereUniqueInput | oAuthAccountWhereUniqueInput[]
+    update?: oAuthAccountUpdateWithWhereUniqueWithoutUserInput | oAuthAccountUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: oAuthAccountUpdateManyWithWhereWithoutUserInput | oAuthAccountUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: oAuthAccountScalarWhereInput | oAuthAccountScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutOAuthAccountsInput = {
+    create?: XOR<UserCreateWithoutOAuthAccountsInput, UserUncheckedCreateWithoutOAuthAccountsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOAuthAccountsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumProviderFieldUpdateOperationsInput = {
+    set?: $Enums.Provider
+  }
+
+  export type UserUpdateOneRequiredWithoutOAuthAccountsNestedInput = {
+    create?: XOR<UserCreateWithoutOAuthAccountsInput, UserUncheckedCreateWithoutOAuthAccountsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOAuthAccountsInput
+    upsert?: UserUpsertWithoutOAuthAccountsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOAuthAccountsInput, UserUpdateWithoutOAuthAccountsInput>, UserUncheckedUpdateWithoutOAuthAccountsInput>
   }
 
   export type ProblemCreatetagsInput = {
@@ -12383,6 +13801,10 @@ export namespace Prisma {
   export type ProblemUpdatetagsInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type UserUpdateOneRequiredWithoutProblemsNestedInput = {
@@ -12716,22 +14138,6 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12832,28 +14238,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12868,11 +14252,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumProviderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Provider | EnumProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderFilter<$PrismaModel> | $Enums.Provider
+  }
+
+  export type NestedEnumProviderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Provider | EnumProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Provider[] | ListEnumProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderWithAggregatesFilter<$PrismaModel> | $Enums.Provider
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProviderFilter<$PrismaModel>
+    _max?: NestedEnumProviderFilter<$PrismaModel>
+  }
+
   export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
     equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedEnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
@@ -12906,6 +14312,14 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12946,8 +14360,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionCreateNestedManyWithoutProblemInput
@@ -12966,8 +14382,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -12987,7 +14405,7 @@ export namespace Prisma {
 
   export type SubmissionCreateWithoutUserInput = {
     id?: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -12996,6 +14414,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     problem: ProblemCreateNestedOneWithoutSubmissionsInput
@@ -13005,7 +14424,7 @@ export namespace Prisma {
   export type SubmissionUncheckedCreateWithoutUserInput = {
     id?: string
     problemId: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -13014,6 +14433,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     testcases?: TestCaseResultUncheckedCreateNestedManyWithoutSubmissionInput
@@ -13083,6 +14503,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type oAuthAccountCreateWithoutUserInput = {
+    id?: string
+    provider?: $Enums.Provider
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type oAuthAccountUncheckedCreateWithoutUserInput = {
+    id?: string
+    provider?: $Enums.Provider
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type oAuthAccountCreateOrConnectWithoutUserInput = {
+    where: oAuthAccountWhereUniqueInput
+    create: XOR<oAuthAccountCreateWithoutUserInput, oAuthAccountUncheckedCreateWithoutUserInput>
+  }
+
+  export type oAuthAccountCreateManyUserInputEnvelope = {
+    data: oAuthAccountCreateManyUserInput | oAuthAccountCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProblemUpsertWithWhereUniqueWithoutUserInput = {
     where: ProblemWhereUniqueInput
     update: XOR<ProblemUpdateWithoutUserInput, ProblemUncheckedUpdateWithoutUserInput>
@@ -13114,8 +14560,10 @@ export namespace Prisma {
     hints?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
     testcases?: JsonFilter<"Problem">
+    sampleTestCases?: JsonFilter<"Problem">
     codeSnippets?: JsonFilter<"Problem">
     referenceSolutions?: JsonFilter<"Problem">
+    isPublic?: BoolFilter<"Problem"> | boolean
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
   }
@@ -13143,7 +14591,7 @@ export namespace Prisma {
     id?: StringFilter<"Submission"> | string
     userId?: StringFilter<"Submission"> | string
     problemId?: StringFilter<"Submission"> | string
-    code?: JsonFilter<"Submission">
+    code?: StringFilter<"Submission"> | string
     language?: StringFilter<"Submission"> | string
     stdin?: StringNullableFilter<"Submission"> | string | null
     stdout?: StringNullableFilter<"Submission"> | string | null
@@ -13152,6 +14600,7 @@ export namespace Prisma {
     status?: StringFilter<"Submission"> | string
     memory?: StringNullableFilter<"Submission"> | string | null
     time?: StringNullableFilter<"Submission"> | string | null
+    isSubmission?: BoolFilter<"Submission"> | boolean
     createdAt?: DateTimeFilter<"Submission"> | Date | string
     updatedAt?: DateTimeFilter<"Submission"> | Date | string
   }
@@ -13212,6 +14661,130 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
   }
 
+  export type oAuthAccountUpsertWithWhereUniqueWithoutUserInput = {
+    where: oAuthAccountWhereUniqueInput
+    update: XOR<oAuthAccountUpdateWithoutUserInput, oAuthAccountUncheckedUpdateWithoutUserInput>
+    create: XOR<oAuthAccountCreateWithoutUserInput, oAuthAccountUncheckedCreateWithoutUserInput>
+  }
+
+  export type oAuthAccountUpdateWithWhereUniqueWithoutUserInput = {
+    where: oAuthAccountWhereUniqueInput
+    data: XOR<oAuthAccountUpdateWithoutUserInput, oAuthAccountUncheckedUpdateWithoutUserInput>
+  }
+
+  export type oAuthAccountUpdateManyWithWhereWithoutUserInput = {
+    where: oAuthAccountScalarWhereInput
+    data: XOR<oAuthAccountUpdateManyMutationInput, oAuthAccountUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type oAuthAccountScalarWhereInput = {
+    AND?: oAuthAccountScalarWhereInput | oAuthAccountScalarWhereInput[]
+    OR?: oAuthAccountScalarWhereInput[]
+    NOT?: oAuthAccountScalarWhereInput | oAuthAccountScalarWhereInput[]
+    id?: StringFilter<"oAuthAccount"> | string
+    userId?: StringFilter<"oAuthAccount"> | string
+    provider?: EnumProviderFilter<"oAuthAccount"> | $Enums.Provider
+    providerId?: StringFilter<"oAuthAccount"> | string
+    createdAt?: DateTimeFilter<"oAuthAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"oAuthAccount"> | Date | string
+  }
+
+  export type UserCreateWithoutOAuthAccountsInput = {
+    id?: string
+    name: string
+    username: string
+    email: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    socials?: NullableJsonNullValueInput | InputJsonValue
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problems?: ProblemCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    problemsSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
+    plalists?: PlaylistCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOAuthAccountsInput = {
+    id?: string
+    name: string
+    username: string
+    email: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    socials?: NullableJsonNullValueInput | InputJsonValue
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    problemsSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
+    plalists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOAuthAccountsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOAuthAccountsInput, UserUncheckedCreateWithoutOAuthAccountsInput>
+  }
+
+  export type UserUpsertWithoutOAuthAccountsInput = {
+    update: XOR<UserUpdateWithoutOAuthAccountsInput, UserUncheckedUpdateWithoutOAuthAccountsInput>
+    create: XOR<UserCreateWithoutOAuthAccountsInput, UserUncheckedCreateWithoutOAuthAccountsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOAuthAccountsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOAuthAccountsInput, UserUncheckedUpdateWithoutOAuthAccountsInput>
+  }
+
+  export type UserUpdateWithoutOAuthAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    socials?: NullableJsonNullValueInput | InputJsonValue
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problems?: ProblemUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    problemsSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
+    plalists?: PlaylistUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOAuthAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    socials?: NullableJsonNullValueInput | InputJsonValue
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    problemsSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
+    plalists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutProblemsInput = {
     id?: string
     name: string
@@ -13223,16 +14796,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     plalists?: PlaylistCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProblemsInput = {
@@ -13246,16 +14816,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     plalists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProblemsInput = {
@@ -13265,7 +14832,7 @@ export namespace Prisma {
 
   export type SubmissionCreateWithoutProblemInput = {
     id?: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -13274,6 +14841,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSubmissionsInput
@@ -13283,7 +14851,7 @@ export namespace Prisma {
   export type SubmissionUncheckedCreateWithoutProblemInput = {
     id?: string
     userId: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -13292,6 +14860,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     testcases?: TestCaseResultUncheckedCreateNestedManyWithoutSubmissionInput
@@ -13377,16 +14946,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProblemsInput = {
@@ -13400,16 +14966,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SubmissionUpsertWithWhereUniqueWithoutProblemInput = {
@@ -13482,16 +15045,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
     plalists?: PlaylistCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -13505,16 +15065,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     plalists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -13533,8 +15090,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProblemsInput
@@ -13554,8 +15113,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
@@ -13629,16 +15190,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -13652,16 +15210,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProblemUpsertWithoutSubmissionsInput = {
@@ -13686,8 +15241,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
@@ -13707,8 +15264,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
@@ -13752,7 +15311,7 @@ export namespace Prisma {
 
   export type SubmissionCreateWithoutTestcasesInput = {
     id?: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -13761,6 +15320,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSubmissionsInput
@@ -13771,7 +15331,7 @@ export namespace Prisma {
     id?: string
     userId: string
     problemId: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -13780,6 +15340,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13802,7 +15363,7 @@ export namespace Prisma {
 
   export type SubmissionUpdateWithoutTestcasesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13811,6 +15372,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubmissionsNestedInput
@@ -13821,7 +15383,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     problemId?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13830,6 +15392,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13845,16 +15408,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     plalists?: PlaylistCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProblemsSolvedInput = {
@@ -13868,16 +15428,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     plalists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProblemsSolvedInput = {
@@ -13896,8 +15453,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProblemsInput
@@ -13917,8 +15476,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -13952,16 +15513,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProblemsSolvedInput = {
@@ -13975,16 +15533,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     plalists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProblemUpsertWithoutSolvedByInput = {
@@ -14009,8 +15564,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
@@ -14030,8 +15587,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -14073,16 +15632,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPlalistsInput = {
@@ -14096,16 +15652,13 @@ export namespace Prisma {
     bio?: string | null
     location?: string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: boolean
-    verificationToken?: string | null
-    verificationTokenExpiry?: Date | string | null
-    resetPasswordToken?: string | null
-    resetPasswordTokenExpiry?: Date | string | null
+    refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     problemsSolved?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
+    oAuthAccounts?: oAuthAccountUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPlalistsInput = {
@@ -14151,16 +15704,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPlalistsInput = {
@@ -14174,16 +15724,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     socials?: NullableJsonNullValueInput | InputJsonValue
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     problemsSolved?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
+    oAuthAccounts?: oAuthAccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PlaylistCreateWithoutProblemsInput = {
@@ -14222,8 +15769,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProblemsInput
@@ -14243,8 +15792,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     submissions?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -14309,8 +15860,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
@@ -14330,8 +15883,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -14349,8 +15904,10 @@ export namespace Prisma {
     hints?: string | null
     editorial?: string | null
     testcases: JsonNullValueInput | InputJsonValue
+    sampleTestCases: JsonNullValueInput | InputJsonValue
     codeSnippets: JsonNullValueInput | InputJsonValue
     referenceSolutions: JsonNullValueInput | InputJsonValue
+    isPublic?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14358,7 +15915,7 @@ export namespace Prisma {
   export type SubmissionCreateManyUserInput = {
     id?: string
     problemId: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -14367,6 +15924,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14387,6 +15945,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type oAuthAccountCreateManyUserInput = {
+    id?: string
+    provider?: $Enums.Provider
+    providerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ProblemUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -14398,8 +15964,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUpdateManyWithoutProblemNestedInput
@@ -14418,8 +15986,10 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -14438,15 +16008,17 @@ export namespace Prisma {
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testcases?: JsonNullValueInput | InputJsonValue
+    sampleTestCases?: JsonNullValueInput | InputJsonValue
     codeSnippets?: JsonNullValueInput | InputJsonValue
     referenceSolutions?: JsonNullValueInput | InputJsonValue
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubmissionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14455,6 +16027,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problem?: ProblemUpdateOneRequiredWithoutSubmissionsNestedInput
@@ -14464,7 +16037,7 @@ export namespace Prisma {
   export type SubmissionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     problemId?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14473,6 +16046,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     testcases?: TestCaseResultUncheckedUpdateManyWithoutSubmissionNestedInput
@@ -14481,7 +16055,7 @@ export namespace Prisma {
   export type SubmissionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     problemId?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14490,6 +16064,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14544,10 +16119,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type oAuthAccountUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type oAuthAccountUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type oAuthAccountUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderFieldUpdateOperationsInput | $Enums.Provider
+    providerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SubmissionCreateManyProblemInput = {
     id?: string
     userId: string
-    code: JsonNullValueInput | InputJsonValue
+    code: string
     language: string
     stdin?: string | null
     stdout?: string | null
@@ -14556,6 +16155,7 @@ export namespace Prisma {
     status: string
     memory?: string | null
     time?: string | null
+    isSubmission?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14576,7 +16176,7 @@ export namespace Prisma {
 
   export type SubmissionUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14585,6 +16185,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubmissionsNestedInput
@@ -14594,7 +16195,7 @@ export namespace Prisma {
   export type SubmissionUncheckedUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14603,6 +16204,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     testcases?: TestCaseResultUncheckedUpdateManyWithoutSubmissionNestedInput
@@ -14611,7 +16213,7 @@ export namespace Prisma {
   export type SubmissionUncheckedUpdateManyWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    code?: JsonNullValueInput | InputJsonValue
+    code?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     stdin?: NullableStringFieldUpdateOperationsInput | string | null
     stdout?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14620,6 +16222,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     memory?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableStringFieldUpdateOperationsInput | string | null
+    isSubmission?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
